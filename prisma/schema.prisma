@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("visitor") // visitor, organizer, seller
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  souks      Souk[]
+  vehicles   Vehicle[]
+  bids       Bid[]
+  registrations SoukRegistration[]
+}
+
+model Souk {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  location    String
+  date        DateTime
+  startTime   String   // HH:mm
+  endTime     String?  // HH:mm
+  spots       Int      // total spots
+  spotPrice   Float    // price per spot
+  services    String?  // optional services (JSON string)
+  status      String   @default("pending") // pending, active, completed, cancelled
+  organizerId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  organizer     User              @relation(fields: [organizerId], references: [id])
+  registrations SoukRegistration[]
+  vehicles      Vehicle[]
+}
+
+model Vehicle {
+  id          String   @id @default(cuid())
+  title       String   // e.g. "Renault Clio 4"
+  brand       String
+  model       String
+  year        Int?
+  mileage     Int?
+  fuelType    String?  // essence, diesel, électrique, hybride
+  description String?
+  price       Float?   // optional, null = negotiable
+  priceType   String   @default("negotiable") // fixed, negotiable
+  images      String?  // JSON array of image URLs
+  qrCode      String?  // QR code for visitor access
+  status      String   @default("pending") // pending, assigned, sold
+  soukId      String
+  sellerId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  souk        Souk              @relation(fields: [soukId], references: [id])
+  seller      User              @relation(fields: [sellerId], references: [id])
+  bids        Bid[]
+  accessLogs  VehicleAccess[]
+}
+
+model SoukRegistration {
+  id          String   @id @default(cuid())
+  soukId      String
+  sellerId    String
+  spotNumber  Int?     // assigned by organizer when scanning QR
+  qrCode      String   // QR code for entry
+  status      String   @default("pending") // pending, accepted, rejected, present
+  createdAt   DateTime @default(now())
+
+  souk   Souk @relation(fields: [soukId], references: [id])
+  seller User @relation(fields: [sellerId], references: [id])
+
+  @@unique([soukId, sellerId])
+}
+
+model Bid {
+  id        String   @id @default(cuid())
+  amount    Float
+  vehicleId String
+  visitorId String
+  status    String   @default("active") // active, outbid, won, lost
+  createdAt DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+  visitor User    @relation(fields: [visitorId], references: [id])
+}
+
+model VehicleAccess {
+  id        String   @id @default(cuid())
+  vehicleId String
+  visitorId String?
+  scannedAt DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+}
