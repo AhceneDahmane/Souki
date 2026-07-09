@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -23,15 +24,17 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getAuthUser();
+    if (!user || user.role !== "organizer") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
+
     const body = await request.json();
     const { title, description, location, date, startTime, endTime, spots, spotPrice, services } = body;
 
     if (!title || !location || !date || !startTime || !spots || !spotPrice) {
       return Response.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
-
-    // Default organizer ID (temp until auth is implemented)
-    const organizerId = "default-organizer";
 
     const souk = await prisma.souk.create({
       data: {
@@ -44,7 +47,7 @@ export async function POST(request: NextRequest) {
         spots: parseInt(spots),
         spotPrice: parseFloat(spotPrice),
         services: services || null,
-        organizerId,
+        organizerId: user.id,
       },
     });
 

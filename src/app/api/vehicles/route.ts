@@ -1,21 +1,23 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateQRCode } from "@/lib/qrcode";
+import { getAuthUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getAuthUser();
+    if (!user || user.role !== "seller") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
+
     const body = await request.json();
-    const { title, brand, model, year, mileage, fuelType, description, price, priceType, soukId } = body;
+    const { title, brand, model, year, mileage, fuelType, description, price, priceType, soukId, images } = body;
 
     if (!title || !brand || !model || !soukId) {
       return Response.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
 
-    const seller = await prisma.user.findFirst({ where: { role: "seller" } });
-    if (!seller) {
-      return Response.json({ error: "Aucun vendeur trouvé. Créez un compte vendeur d'abord." }, { status: 400 });
-    }
-    const sellerId = seller.id;
+    const sellerId = user.id;
 
     const existingReg = await prisma.soukRegistration.findUnique({
       where: { soukId_sellerId: { soukId, sellerId } },
@@ -41,6 +43,7 @@ export async function POST(request: NextRequest) {
         description: description || null,
         price: price || null,
         priceType: priceType || "negotiable",
+        images: images || null,
         soukId,
         sellerId,
       },

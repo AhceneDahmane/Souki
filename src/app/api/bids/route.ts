@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,6 +23,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getAuthUser();
+    if (!user) {
+      return Response.json({ error: "Connectez-vous d'abord" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { vehicleId, amount } = body;
 
@@ -29,10 +35,8 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
 
-    const visitorId = "default-visitor"; // temp until auth
-
     const bid = await prisma.bid.create({
-      data: { vehicleId, amount: parseFloat(amount), visitorId },
+      data: { vehicleId, amount: parseFloat(amount), visitorId: user.id },
     });
 
     return Response.json(bid, { status: 201 });

@@ -501,6 +501,80 @@ export const openApiSpec = {
         },
       },
     },
+    "/api/auth/register": {
+      post: {
+        tags: ["Authentification"],
+        summary: "Créer un compte",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["email", "name", "password"],
+                properties: {
+                  email: { type: "string", format: "email" },
+                  name: { type: "string" },
+                  password: { type: "string", minLength: 6 },
+                  role: { type: "string", enum: ["visitor", "organizer", "seller"], description: "Défaut: visitor" },
+                  phone: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Compte créé (cookie HTTP-Only set)" },
+          "400": { description: "Champs obligatoires manquants" },
+          "409": { description: "Email déjà utilisé" },
+        },
+      },
+    },
+    "/api/auth/login": {
+      post: {
+        tags: ["Authentification"],
+        summary: "Se connecter",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["email", "password"],
+                properties: {
+                  email: { type: "string", format: "email" },
+                  password: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Connecté (cookie HTTP-Only set)" },
+          "400": { description: "Email et mot de passe requis" },
+          "401": { description: "Email ou mot de passe incorrect" },
+        },
+      },
+    },
+    "/api/auth/me": {
+      get: {
+        tags: ["Authentification"],
+        summary: "Récupérer l'utilisateur connecté",
+        responses: {
+          "200": { description: "Utilisateur connecté" },
+          "401": { description: "Non connecté" },
+        },
+      },
+    },
+    "/api/auth/logout": {
+      post: {
+        tags: ["Authentification"],
+        summary: "Se déconnecter",
+        responses: {
+          "200": { description: "Cookie supprimé" },
+        },
+      },
+    },
   },
   components: {
     schemas: {

@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
 export default async function SellerDashboardPage() {
+  const user = await getAuthUser();
+  if (!user || user.role !== "seller") redirect("/login");
+
   const souks = await prisma.souk.findMany({
     where: { status: { in: ["pending", "active"] } },
     orderBy: { date: "asc" },
@@ -14,6 +19,7 @@ export default async function SellerDashboardPage() {
   });
 
   const registrations = await prisma.soukRegistration.findMany({
+    where: { sellerId: user.id },
     orderBy: { createdAt: "desc" },
     include: {
       souk: { select: { title: true, location: true, date: true, startTime: true } },
@@ -21,6 +27,7 @@ export default async function SellerDashboardPage() {
   });
 
   const vehicles = await prisma.vehicle.findMany({
+    where: { sellerId: user.id },
     orderBy: { createdAt: "desc" },
     include: {
       souk: { select: { title: true } },
@@ -100,9 +107,13 @@ export default async function SellerDashboardPage() {
             {vehicles.map((v) => (
               <div key={v.id} className="bg-[#18181b] rounded-xl border border-[#27272a] p-4 flex items-center justify-between hover:border-zinc-700 transition-all">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-zinc-700/30 to-zinc-800/30 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  </div>
+                  {v.images ? (
+                    <img src={JSON.parse(v.images)[0]} alt={v.title} className="w-12 h-12 rounded-lg object-cover border border-[#27272a]" />
+                  ) : (
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-zinc-700/30 to-zinc-800/30 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                  )}
                   <div>
                     <p className="text-sm font-medium text-white">{v.title}</p>
                     <p className="text-xs text-zinc-500">{v.souk.title}</p>

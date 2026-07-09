@@ -21,7 +21,9 @@ function NewVehicleForm() {
     price: "",
     priceType: "negotiable",
     soukId: preselectedSoukId || "",
+    image: "",
   });
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetch("/api/souks?status=pending,active")
@@ -42,6 +44,7 @@ function NewVehicleForm() {
           year: form.year ? parseInt(form.year) : null,
           mileage: form.mileage ? parseInt(form.mileage) : null,
           price: form.price ? parseFloat(form.price) : null,
+          images: form.image ? JSON.stringify([form.image]) : null,
         }),
       });
       if (res.ok) {
@@ -127,6 +130,44 @@ function NewVehicleForm() {
           <label className="block text-sm font-medium text-zinc-300 mb-1.5">Description</label>
           <textarea value={form.description} onChange={(e) => update("description", e.target.value)}
             className={`${inputClass} resize-none`} rows={3} placeholder="Description du véhicule..." />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-zinc-300 mb-1.5">Photo du véhicule</label>
+          <div className="flex items-center gap-4">
+            <label className="cursor-pointer flex items-center gap-2 px-4 py-2.5 bg-[#0a0a0b] border border-[#27272a] rounded-lg text-sm text-zinc-400 hover:border-amber-500/50 transition-colors">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              {uploading ? "Upload..." : "Choisir une image"}
+              <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                setUploading(true);
+                try {
+                  const fd = new FormData();
+                  fd.append("file", file);
+                  const res = await fetch("/api/upload", { method: "POST", body: fd });
+                  const data = await res.json();
+                  if (res.ok) setForm((prev) => ({ ...prev, image: data.url }));
+                  else alert(data.error || "Erreur upload");
+                } catch {
+                  alert("Erreur réseau");
+                } finally {
+                  setUploading(false);
+                }
+              }} />
+            </label>
+            {form.image && (
+              <button type="button" onClick={() => setForm((prev) => ({ ...prev, image: "" }))}
+                className="text-xs text-red-400 hover:text-red-300 transition-colors">
+                Supprimer
+              </button>
+            )}
+          </div>
+          {form.image && (
+            <div className="mt-3 relative w-32 h-24 rounded-lg overflow-hidden border border-[#27272a]">
+              <img src={form.image} alt="Aperçu" className="w-full h-full object-cover" />
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">

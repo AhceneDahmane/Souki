@@ -92,9 +92,13 @@ export default async function SoukDetailPage({
             <div key={vehicle.id} className="group p-5 bg-[#18181b] rounded-xl border border-[#27272a] hover:border-amber-500/20 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-700/30 to-zinc-800/30 flex items-center justify-center mt-0.5">
-                    <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  </div>
+                  {vehicle.images ? (
+                    <img src={JSON.parse(vehicle.images)[0]} alt={vehicle.title} className="w-16 h-16 rounded-lg object-cover border border-[#27272a] mt-0.5" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-700/30 to-zinc-800/30 flex items-center justify-center mt-0.5">
+                      <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors">{vehicle.title}</h3>
                     <p className="text-xs text-zinc-500 mt-0.5">

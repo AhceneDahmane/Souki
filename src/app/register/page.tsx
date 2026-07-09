@@ -4,10 +4,13 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("visitor");
+  const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -17,15 +20,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password, role, phone: phone || undefined }),
       });
 
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Erreur de connexion");
+        setError(data.error || "Erreur d'inscription");
         return;
       }
 
@@ -46,7 +49,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-white text-center mb-8">Connexion</h1>
+        <h1 className="text-2xl font-bold text-white text-center mb-8">Inscription</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
@@ -54,6 +57,19 @@ export default function LoginPage() {
               {error}
             </div>
           )}
+
+          <div>
+            <label htmlFor="name" className="block text-sm text-zinc-400 mb-1">Nom</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-lg border border-[#27272a] bg-[#18181b] px-3 py-2 text-white placeholder-zinc-500 outline-none focus:border-amber-500"
+              placeholder="Votre nom"
+              required
+            />
+          </div>
 
           <div>
             <label htmlFor="email" className="block text-sm text-zinc-400 mb-1">Email</label>
@@ -76,8 +92,35 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-[#27272a] bg-[#18181b] px-3 py-2 text-white placeholder-zinc-500 outline-none focus:border-amber-500"
-              placeholder="••••••••"
+              placeholder="Au moins 6 caractères"
               required
+              minLength={6}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="role" className="block text-sm text-zinc-400 mb-1">Je suis</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full rounded-lg border border-[#27272a] bg-[#18181b] px-3 py-2 text-white outline-none focus:border-amber-500"
+            >
+              <option value="visitor">Visiteur</option>
+              <option value="seller">Vendeur</option>
+              <option value="organizer">Organisateur</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-sm text-zinc-400 mb-1">Téléphone (optionnel)</label>
+            <input
+              id="phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full rounded-lg border border-[#27272a] bg-[#18181b] px-3 py-2 text-white placeholder-zinc-500 outline-none focus:border-amber-500"
+              placeholder="+213 555 XX XX XX"
             />
           </div>
 
@@ -86,14 +129,14 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full rounded-lg bg-amber-500 px-4 py-2 font-medium text-black hover:bg-amber-400 disabled:opacity-50 transition-all"
           >
-            {loading ? "Connexion..." : "Se connecter"}
+            {loading ? "Inscription..." : "S'inscrire"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-zinc-500">
-          Pas encore de compte ?{" "}
-          <Link href="/register" className="text-amber-500 hover:text-amber-400">
-            S&apos;inscrire
+          Déjà un compte ?{" "}
+          <Link href="/login" className="text-amber-500 hover:text-amber-400">
+            Se connecter
           </Link>
         </p>
       </div>

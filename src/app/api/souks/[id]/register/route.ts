@@ -1,14 +1,17 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateQRCode } from "@/lib/qrcode";
+import { getAuthUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
-    const body = await request.json();
+    const user = await getAuthUser();
+    if (!user || user.role !== "seller") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
 
-    // Default seller ID (temp until auth)
-    const sellerId = body.sellerId || "default-seller";
+    const { id } = await params;
+    const sellerId = user.id;
 
     const existing = await prisma.soukRegistration.findUnique({
       where: { soukId_sellerId: { soukId: id, sellerId } },
@@ -43,6 +46,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const user = await getAuthUser();
+    if (!user || user.role !== "organizer") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { registrationId, action, spotNumber } = body;

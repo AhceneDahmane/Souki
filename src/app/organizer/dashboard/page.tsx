@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default async function OrganizerDashboardPage() {
+  const user = await getAuthUser();
+  if (!user || user.role !== "organizer") redirect("/login");
+
   const souks = await prisma.souk.findMany({
+    where: { organizerId: user.id },
     orderBy: { createdAt: "desc" },
     include: {
       _count: { select: { vehicles: true, registrations: true } },

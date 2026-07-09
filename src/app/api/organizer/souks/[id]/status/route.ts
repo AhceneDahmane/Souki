@@ -1,8 +1,14 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const user = await getAuthUser();
+    if (!user || user.role !== "organizer") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { status } = body;
