@@ -30,6 +30,12 @@ export default function Navbar() {
             >
               Vendeur
             </Link>
+            <Link
+              href="/api-docs"
+              className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200"
+            >
+              API
+            </Link>
           </div>
         </div>
       </div>
