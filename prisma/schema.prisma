@@ -59,12 +59,12 @@ model Vehicle {
   images      String?  // JSON array of image URLs
   qrCode      String?  // QR code for visitor access
   status      String   @default("pending") // pending, assigned, sold
-  soukId      String
+  soukId      String?
   sellerId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  souk        Souk              @relation(fields: [soukId], references: [id])
+  souk        Souk?             @relation(fields: [soukId], references: [id])
   seller      User              @relation(fields: [sellerId], references: [id])
   bids        Bid[]
   accessLogs  VehicleAccess[]

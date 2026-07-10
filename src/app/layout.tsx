@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { AuthProvider } from "@/lib/auth-context";
+import AuthGate from "@/components/AuthGate";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +29,17 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col bg-[#0a0a0b]">
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-amber-500/20 blur-[120px] animate-[float_8s_ease-in-out_infinite]" />
+          <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full bg-amber-600/15 blur-[120px] animate-[float-delayed_10s_ease-in-out_infinite]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-yellow-500/10 blur-[150px] animate-[pulse-glow_6s_ease-in-out_infinite]" />
+        </div>
         <AuthProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
+          <AuthGate>
+            <Navbar />
+            <main className="flex-1 relative">{children}</main>
+            <Footer />
+          </AuthGate>
         </AuthProvider>
       </body>
     </html>

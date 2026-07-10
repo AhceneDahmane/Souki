@@ -273,7 +273,7 @@ export type VehicleGroupByOutputType = {
   images: string | null
   qrCode: string | null
   status: string
-  soukId: string
+  soukId: string | null
   sellerId: string
   createdAt: Date
   updatedAt: Date
@@ -316,11 +316,11 @@ export type VehicleWhereInput = {
   images?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   qrCode?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   status?: Prisma.StringFilter<"Vehicle"> | string
-  soukId?: Prisma.StringFilter<"Vehicle"> | string
+  soukId?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   sellerId?: Prisma.StringFilter<"Vehicle"> | string
   createdAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
-  souk?: Prisma.XOR<Prisma.SoukScalarRelationFilter, Prisma.SoukWhereInput>
+  souk?: Prisma.XOR<Prisma.SoukNullableScalarRelationFilter, Prisma.SoukWhereInput> | null
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
   accessLogs?: Prisma.VehicleAccessListRelationFilter
@@ -340,7 +340,7 @@ export type VehicleOrderByWithRelationInput = {
   images?: Prisma.SortOrderInput | Prisma.SortOrder
   qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  soukId?: Prisma.SortOrder
+  soukId?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -367,11 +367,11 @@ export type VehicleWhereUniqueInput = Prisma.AtLeast<{
   images?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   qrCode?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   status?: Prisma.StringFilter<"Vehicle"> | string
-  soukId?: Prisma.StringFilter<"Vehicle"> | string
+  soukId?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   sellerId?: Prisma.StringFilter<"Vehicle"> | string
   createdAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
-  souk?: Prisma.XOR<Prisma.SoukScalarRelationFilter, Prisma.SoukWhereInput>
+  souk?: Prisma.XOR<Prisma.SoukNullableScalarRelationFilter, Prisma.SoukWhereInput> | null
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
   accessLogs?: Prisma.VehicleAccessListRelationFilter
@@ -391,7 +391,7 @@ export type VehicleOrderByWithAggregationInput = {
   images?: Prisma.SortOrderInput | Prisma.SortOrder
   qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  soukId?: Prisma.SortOrder
+  soukId?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -419,7 +419,7 @@ export type VehicleScalarWhereWithAggregatesInput = {
   images?: Prisma.StringNullableWithAggregatesFilter<"Vehicle"> | string | null
   qrCode?: Prisma.StringNullableWithAggregatesFilter<"Vehicle"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Vehicle"> | string
-  soukId?: Prisma.StringWithAggregatesFilter<"Vehicle"> | string
+  soukId?: Prisma.StringNullableWithAggregatesFilter<"Vehicle"> | string | null
   sellerId?: Prisma.StringWithAggregatesFilter<"Vehicle"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
@@ -441,7 +441,7 @@ export type VehicleCreateInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  souk: Prisma.SoukCreateNestedOneWithoutVehiclesInput
+  souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
@@ -461,7 +461,7 @@ export type VehicleUncheckedCreateInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -485,7 +485,7 @@ export type VehicleUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  souk?: Prisma.SoukUpdateOneRequiredWithoutVehiclesNestedInput
+  souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
@@ -505,7 +505,7 @@ export type VehicleUncheckedUpdateInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -527,7 +527,7 @@ export type VehicleCreateManyInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -565,7 +565,7 @@ export type VehicleUncheckedUpdateManyInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -802,7 +802,7 @@ export type VehicleCreateWithoutSellerInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  souk: Prisma.SoukCreateNestedOneWithoutVehiclesInput
+  souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
 }
@@ -821,7 +821,7 @@ export type VehicleUncheckedCreateWithoutSellerInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
@@ -870,7 +870,7 @@ export type VehicleScalarWhereInput = {
   images?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   qrCode?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   status?: Prisma.StringFilter<"Vehicle"> | string
-  soukId?: Prisma.StringFilter<"Vehicle"> | string
+  soukId?: Prisma.StringNullableFilter<"Vehicle"> | string | null
   sellerId?: Prisma.StringFilter<"Vehicle"> | string
   createdAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
@@ -959,7 +959,7 @@ export type VehicleCreateWithoutBidsInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  souk: Prisma.SoukCreateNestedOneWithoutVehiclesInput
+  souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
 }
@@ -978,7 +978,7 @@ export type VehicleUncheckedCreateWithoutBidsInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1017,7 +1017,7 @@ export type VehicleUpdateWithoutBidsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  souk?: Prisma.SoukUpdateOneRequiredWithoutVehiclesNestedInput
+  souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
 }
@@ -1036,7 +1036,7 @@ export type VehicleUncheckedUpdateWithoutBidsInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1059,7 +1059,7 @@ export type VehicleCreateWithoutAccessLogsInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  souk: Prisma.SoukCreateNestedOneWithoutVehiclesInput
+  souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
 }
@@ -1078,7 +1078,7 @@ export type VehicleUncheckedCreateWithoutAccessLogsInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1117,7 +1117,7 @@ export type VehicleUpdateWithoutAccessLogsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  souk?: Prisma.SoukUpdateOneRequiredWithoutVehiclesNestedInput
+  souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
 }
@@ -1136,7 +1136,7 @@ export type VehicleUncheckedUpdateWithoutAccessLogsInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1157,7 +1157,7 @@ export type VehicleCreateManySellerInput = {
   images?: string | null
   qrCode?: string | null
   status?: string
-  soukId: string
+  soukId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1178,7 +1178,7 @@ export type VehicleUpdateWithoutSellerInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  souk?: Prisma.SoukUpdateOneRequiredWithoutVehiclesNestedInput
+  souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
 }
@@ -1197,7 +1197,7 @@ export type VehicleUncheckedUpdateWithoutSellerInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
@@ -1218,7 +1218,7 @@ export type VehicleUncheckedUpdateManyWithoutSellerInput = {
   images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  soukId?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1361,7 +1361,7 @@ export type VehicleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Vehicle$bidsArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Vehicle$accessLogsArgs<ExtArgs>
@@ -1386,7 +1386,7 @@ export type VehicleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehicle"]>
 
@@ -1408,7 +1408,7 @@ export type VehicleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehicle"]>
 
@@ -1434,25 +1434,25 @@ export type VehicleSelectScalar = {
 
 export type VehicleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "brand" | "model" | "year" | "mileage" | "fuelType" | "description" | "price" | "priceType" | "images" | "qrCode" | "status" | "soukId" | "sellerId" | "createdAt" | "updatedAt", ExtArgs["result"]["vehicle"]>
 export type VehicleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Vehicle$bidsArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Vehicle$accessLogsArgs<ExtArgs>
   _count?: boolean | Prisma.VehicleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VehicleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type VehicleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
+  souk?: boolean | Prisma.Vehicle$soukArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $VehiclePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Vehicle"
   objects: {
-    souk: Prisma.$SoukPayload<ExtArgs>
+    souk: Prisma.$SoukPayload<ExtArgs> | null
     seller: Prisma.$UserPayload<ExtArgs>
     bids: Prisma.$BidPayload<ExtArgs>[]
     accessLogs: Prisma.$VehicleAccessPayload<ExtArgs>[]
@@ -1471,7 +1471,7 @@ export type $VehiclePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     images: string | null
     qrCode: string | null
     status: string
-    soukId: string
+    soukId: string | null
     sellerId: string
     createdAt: Date
     updatedAt: Date
@@ -1869,7 +1869,7 @@ readonly fields: VehicleFieldRefs;
  */
 export interface Prisma__VehicleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  souk<T extends Prisma.SoukDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SoukDefaultArgs<ExtArgs>>): Prisma.Prisma__SoukClient<runtime.Types.Result.GetResult<Prisma.$SoukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  souk<T extends Prisma.Vehicle$soukArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$soukArgs<ExtArgs>>): Prisma.Prisma__SoukClient<runtime.Types.Result.GetResult<Prisma.$SoukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   seller<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bids<T extends Prisma.Vehicle$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accessLogs<T extends Prisma.Vehicle$accessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VehicleAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2310,6 +2310,25 @@ export type VehicleDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Vehicles to delete.
    */
   limit?: number
+}
+
+/**
+ * Vehicle.souk
+ */
+export type Vehicle$soukArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Souk
+   */
+  select?: Prisma.SoukSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Souk
+   */
+  omit?: Prisma.SoukOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SoukInclude<ExtArgs> | null
+  where?: Prisma.SoukWhereInput
 }
 
 /**

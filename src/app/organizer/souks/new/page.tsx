@@ -138,7 +138,7 @@ export default function NewSoukPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1.5">Prix par place (€) *</label>
+            <label className="block text-sm font-medium text-zinc-300 mb-1.5">Prix par place (DZD) *</label>
             <input
               type="number"
               required

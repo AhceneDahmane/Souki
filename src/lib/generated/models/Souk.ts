@@ -579,6 +579,11 @@ export type SoukSumOrderByAggregateInput = {
   spotPrice?: Prisma.SortOrder
 }
 
+export type SoukNullableScalarRelationFilter = {
+  is?: Prisma.SoukWhereInput | null
+  isNot?: Prisma.SoukWhereInput | null
+}
+
 export type SoukScalarRelationFilter = {
   is?: Prisma.SoukWhereInput
   isNot?: Prisma.SoukWhereInput
@@ -648,10 +653,12 @@ export type SoukCreateNestedOneWithoutVehiclesInput = {
   connect?: Prisma.SoukWhereUniqueInput
 }
 
-export type SoukUpdateOneRequiredWithoutVehiclesNestedInput = {
+export type SoukUpdateOneWithoutVehiclesNestedInput = {
   create?: Prisma.XOR<Prisma.SoukCreateWithoutVehiclesInput, Prisma.SoukUncheckedCreateWithoutVehiclesInput>
   connectOrCreate?: Prisma.SoukCreateOrConnectWithoutVehiclesInput
   upsert?: Prisma.SoukUpsertWithoutVehiclesInput
+  disconnect?: Prisma.SoukWhereInput | boolean
+  delete?: Prisma.SoukWhereInput | boolean
   connect?: Prisma.SoukWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SoukUpdateToOneWithWhereWithoutVehiclesInput, Prisma.SoukUpdateWithoutVehiclesInput>, Prisma.SoukUncheckedUpdateWithoutVehiclesInput>
 }

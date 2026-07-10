@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import BidButton from "./BidButton";
 
 export const dynamic = "force-dynamic";
@@ -52,7 +53,7 @@ export default async function SoukDetailPage({
             { label: "Lieu", value: souk.location, icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" },
             { label: "Date", value: new Date(souk.date).toLocaleDateString("fr-FR"), icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
             { label: "Horaires", value: `${souk.startTime}${souk.endTime ? ` - ${souk.endTime}` : ""}`, icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
-            { label: "Prix place", value: `${souk.spotPrice} €`, icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+            { label: "Prix place", value: `${souk.spotPrice} DZD`, icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
           ].map((item) => (
             <div key={item.label} className="p-3 bg-[#0a0a0b] rounded-lg border border-[#27272a]">
               <div className="flex items-center gap-2 text-xs text-zinc-500 mb-1">
@@ -100,7 +101,7 @@ export default async function SoukDetailPage({
                     </div>
                   )}
                   <div>
-                    <h3 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors">{vehicle.title}</h3>
+                    <Link href={`/vehicles/${vehicle.id}`} className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors hover:text-amber-400">{vehicle.title}</Link>
                     <p className="text-xs text-zinc-500 mt-0.5">
                       {vehicle.year ? `${vehicle.year}` : ""}
                       {vehicle.mileage ? ` · ${vehicle.mileage.toLocaleString("fr-FR")} km` : ""}
@@ -110,7 +111,7 @@ export default async function SoukDetailPage({
                 </div>
                 <span className="text-sm font-medium text-amber-400 whitespace-nowrap">
                   {vehicle.price
-                    ? `${vehicle.price.toLocaleString("fr-FR")} €`
+                    ? `${vehicle.price.toLocaleString("fr-FR")} DZD`
                     : "Négociable"}
                 </span>
               </div>

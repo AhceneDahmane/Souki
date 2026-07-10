@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import StepsSection from "@/components/StepsSection";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,16 @@ export default async function VisitorDashboardPage() {
         <h1 className="text-2xl font-bold text-white">Tableau de bord visiteur</h1>
         <p className="text-sm text-zinc-500 mt-1">Parcourez les souks et suivez vos enchères</p>
       </div>
+
+      <StepsSection
+        title="Étapes à suivre"
+        steps={[
+          { label: "Créer votre compte visiteur", done: true, icon: "" },
+          { label: "Parcourir les souks disponibles", done: souks.length > 0, href: "/souks", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+          { label: "Explorer les véhicules et enchérir", done: bids.length > 0, href: "/souks", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+          { label: "Scanner les QR codes sur place", done: false, icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" },
+        ]}
+      />
 
       {/* Souks à venir */}
       <section className="mb-10">
@@ -112,7 +123,7 @@ export default async function VisitorDashboardPage() {
               >
                 <div>
                   <p className="text-sm font-medium text-white">{bid.vehicle.title}</p>
-                  <p className="text-xs text-zinc-500">{bid.vehicle.souk.title}</p>
+                  <p className="text-xs text-zinc-500">{bid.vehicle.souk?.title || "Non assigné"}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-medium text-amber-400">

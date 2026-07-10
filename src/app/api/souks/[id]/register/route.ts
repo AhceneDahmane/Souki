@@ -12,13 +12,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     const { id } = await params;
     const sellerId = user.id;
+    const body = await request.json();
+    const { vehicleIds } = body;
 
-    const existing = await prisma.soukRegistration.findUnique({
-      where: { soukId_sellerId: { soukId: id, sellerId } },
-    });
-
-    if (existing) {
-      return Response.json({ error: "Vous êtes déjà inscrit à ce souk" }, { status: 400 });
+    if (!vehicleIds || !Array.isArray(vehicleIds) || vehicleIds.length === 0) {
+      return Response.json({ error: "Sélectionnez au moins un véhicule" }, { status: 400 });
     }
 
     const souk = await prisma.souk.findUnique({ where: { id } });
@@ -26,19 +24,40 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return Response.json({ error: "Souk introuvable" }, { status: 404 });
     }
 
-    const regCount = await prisma.soukRegistration.count({ where: { soukId: id } });
-    if (regCount >= souk.spots) {
-      return Response.json({ error: "Plus de places disponibles" }, { status: 400 });
+    // Verify vehicles belong to seller and are not already assigned to another souk
+    const vehicles = await prisma.vehicle.findMany({
+      where: { id: { in: vehicleIds }, sellerId, soukId: null },
+    });
+    if (vehicles.length !== vehicleIds.length) {
+      return Response.json({ error: "Certains véhicules sont déjà inscrits à un autre souk" }, { status: 400 });
     }
 
-    const qrData = JSON.stringify({ type: "souk-access", soukId: id, sellerId });
-    const qrCode = await generateQRCode(qrData);
-
-    const registration = await prisma.soukRegistration.create({
-      data: { soukId: id, sellerId, qrCode },
+    const existing = await prisma.soukRegistration.findUnique({
+      where: { soukId_sellerId: { soukId: id, sellerId } },
     });
 
-    return Response.json(registration, { status: 201 });
+    let registration;
+    if (!existing) {
+      const regCount = await prisma.soukRegistration.count({ where: { soukId: id } });
+      if (regCount >= souk.spots) {
+        return Response.json({ error: "Plus de places disponibles" }, { status: 400 });
+      }
+
+      const qrData = JSON.stringify({ type: "souk-access", soukId: id, sellerId });
+      const qrCode = await generateQRCode(qrData);
+
+      registration = await prisma.soukRegistration.create({
+        data: { soukId: id, sellerId, qrCode },
+      });
+    }
+
+    // Link vehicles to souk
+    await prisma.vehicle.updateMany({
+      where: { id: { in: vehicleIds } },
+      data: { soukId: id },
+    });
+
+    return Response.json({ registration, vehiclesLinked: vehicleIds.length }, { status: existing ? 200 : 201 });
   } catch (error) {
     return Response.json({ error: "Erreur lors de l'inscription" }, { status: 500 });
   }

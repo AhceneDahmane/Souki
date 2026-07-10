@@ -1,7 +1,25 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { generateQRCode } from "@/lib/qrcode";
 import { getAuthUser } from "@/lib/auth";
+
+export async function GET() {
+  try {
+    const user = await getAuthUser();
+    if (!user || user.role !== "seller") {
+      return Response.json({ error: "Non autorisé" }, { status: 403 });
+    }
+
+    const vehicles = await prisma.vehicle.findMany({
+      where: { sellerId: user.id },
+      orderBy: { createdAt: "desc" },
+      include: { souk: { select: { title: true } } },
+    });
+
+    return Response.json(vehicles);
+  } catch (error) {
+    return Response.json({ error: "Erreur" }, { status: 500 });
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,25 +29,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, brand, model, year, mileage, fuelType, description, price, priceType, soukId, images } = body;
+    const { title, brand, model, year, mileage, fuelType, description, price, priceType, images } = body;
 
-    if (!title || !brand || !model || !soukId) {
+    if (!title || !brand || !model) {
       return Response.json({ error: "Champs obligatoires manquants" }, { status: 400 });
-    }
-
-    const sellerId = user.id;
-
-    const existingReg = await prisma.soukRegistration.findUnique({
-      where: { soukId_sellerId: { soukId, sellerId } },
-    });
-
-    if (!existingReg) {
-      const qrData = JSON.stringify({ type: "souk-access", soukId, sellerId });
-      const qrCode = await generateQRCode(qrData);
-
-      await prisma.soukRegistration.create({
-        data: { soukId, sellerId, qrCode },
-      });
     }
 
     const vehicle = await prisma.vehicle.create({
@@ -44,8 +47,7 @@ export async function POST(request: NextRequest) {
         price: price || null,
         priceType: priceType || "negotiable",
         images: images || null,
-        soukId,
-        sellerId,
+        sellerId: user.id,
       },
     });
 

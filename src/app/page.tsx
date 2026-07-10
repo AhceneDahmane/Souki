@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const plans = [
   {
@@ -57,36 +58,42 @@ const steps = [
     title: "L'organisateur crée un souk",
     desc: "Définissez le lieu, la date, le nombre de places et les services proposés sur place.",
     color: "from-amber-500 to-amber-600",
+    icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z",
   },
   {
     num: "02",
     title: "Les vendeurs s'inscrivent",
     desc: "Inscrivez vos véhicules avec photos et prix. Un QR code d'accès est généré automatiquement.",
     color: "from-amber-400 to-amber-500",
+    icon: "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z",
   },
   {
     num: "03",
     title: "Arrivée sur place",
     desc: "L'organisateur scanne votre QR code et vous attribue un emplacement dans le souk.",
     color: "from-amber-500 to-amber-600",
+    icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
   },
   {
     num: "04",
     title: "QR code véhicule",
     desc: "Imprimez le QR code de votre véhicule pour que les visiteurs puissent scanner et voir les infos.",
     color: "from-amber-400 to-amber-500",
+    icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
   },
   {
     num: "05",
     title: "Les visiteurs explorent",
     desc: "Parcourez les souks, scannez les QR codes et enchérissez en temps réel sur les véhicules.",
     color: "from-amber-500 to-amber-600",
+    icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z",
   },
   {
     num: "06",
     title: "Enchères en direct",
     desc: "Suivez les enchères en temps réel et obtenez le véhicule au prix souhaité.",
     color: "from-amber-400 to-amber-500",
+    icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
   },
 ];
 
@@ -137,7 +144,7 @@ export default function Home() {
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#27272a] bg-[#18181b] text-xs text-zinc-400">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-            Plateforme SaaS lancée en 2026
+            Plateforme de mise en relation
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
@@ -190,12 +197,12 @@ export default function Home() {
       <section className="max-w-4xl mx-auto px-4 mb-16">
         <div className="grid grid-cols-3 gap-4 p-6 bg-[#18181b] rounded-2xl border border-[#27272a]">
           {[
-            { value: "50+", label: "Souks organisés" },
-            { value: "500+", label: "Véhicules vendus" },
-            { value: "2000+", label: "Utilisateurs actifs" },
+            { target: 50, suffix: "+", label: "Souks organisés" },
+            { target: 500, suffix: "+", label: "Véhicules vendus" },
+            { target: 2000, suffix: "+", label: "Utilisateurs actifs" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-2xl font-bold text-white"><AnimatedCounter target={stat.target} suffix={stat.suffix} /></p>
               <p className="text-xs text-zinc-500 mt-1">{stat.label}</p>
             </div>
           ))}
@@ -203,27 +210,18 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className="max-7xl mx-auto px-4 mb-20">
+      <section id="comment-ca-marche" className="max-7xl mx-auto px-4 mb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white">Comment ça marche</h2>
           <p className="text-zinc-500 mt-2">Du début à la fin, tout est simplifié</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {steps.slice(0, 3).map((step) => (
+          {steps.map((step) => (
             <div key={step.num} className="group relative p-6 bg-[#18181b] rounded-xl border border-[#27272a] hover:border-amber-500/30 transition-all duration-300">
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 text-sm font-bold text-black`}>
-                {step.num}
-              </div>
-              <h3 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors mb-2">{step.title}</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto mt-4">
-          {steps.slice(3).map((step) => (
-            <div key={step.num} className="group relative p-6 bg-[#18181b] rounded-xl border border-[#27272a] hover:border-amber-500/30 transition-all duration-300">
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 text-sm font-bold text-black`}>
-                {step.num}
+              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4`}>
+                <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d={step.icon} />
+                </svg>
               </div>
               <h3 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors mb-2">{step.title}</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">{step.desc}</p>
@@ -233,7 +231,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="max-w-5xl mx-auto px-4 mb-20">
+      <section id="offres" className="max-w-5xl mx-auto px-4 mb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white">Nos offres</h2>
           <p className="text-zinc-500 mt-2">Choisissez le profil qui vous correspond</p>
@@ -285,7 +283,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="max-w-5xl mx-auto px-4 mb-20">
+      <section id="temoignages" className="max-w-5xl mx-auto px-4 mb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white">Ce qu&apos;ils disent</h2>
           <p className="text-zinc-500 mt-2">Ils ont déjà adopté Souki</p>
@@ -339,18 +337,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[#27272a] py-8">
-        <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
-              <span className="text-[10px] font-bold text-black">S</span>
-            </div>
-            <span className="text-sm text-zinc-400">Souki</span>
-          </div>
-          <p className="text-xs text-zinc-600">© 2026 Souki. Tous droits réservés.</p>
-        </div>
-      </footer>
     </div>
   );
 }

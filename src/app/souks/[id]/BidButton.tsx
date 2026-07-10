@@ -45,7 +45,7 @@ export default function BidButton({ vehicleId }: { vehicleId: string }) {
             step="0.01"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="Montant (€)"
+            placeholder="Montant (DZD)"
             className="w-24 px-2 py-1 text-xs bg-[#0a0a0b] border border-[#27272a] rounded-lg text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-amber-500/50"
             required
           />

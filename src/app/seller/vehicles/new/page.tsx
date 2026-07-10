@@ -1,15 +1,12 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function NewVehicleForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const preselectedSoukId = searchParams.get("soukId");
 
   const [loading, setLoading] = useState(false);
-  const [souks, setSouks] = useState<Array<{ id: string; title: string; location: string; date: string }>>([]);
   const [form, setForm] = useState({
     title: "",
     brand: "",
@@ -20,17 +17,9 @@ function NewVehicleForm() {
     description: "",
     price: "",
     priceType: "negotiable",
-    soukId: preselectedSoukId || "",
     image: "",
   });
   const [uploading, setUploading] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/souks?status=pending,active")
-      .then((res) => res.json())
-      .then((data) => setSouks(data))
-      .catch(() => {});
-  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,10 +29,15 @@ function NewVehicleForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
+          title: form.title,
+          brand: form.brand,
+          model: form.model,
           year: form.year ? parseInt(form.year) : null,
           mileage: form.mileage ? parseInt(form.mileage) : null,
+          fuelType: form.fuelType || null,
+          description: form.description || null,
           price: form.price ? parseFloat(form.price) : null,
+          priceType: form.priceType,
           images: form.image ? JSON.stringify([form.image]) : null,
         }),
       });
@@ -74,16 +68,6 @@ function NewVehicleForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5 bg-[#18181b] p-6 rounded-xl border border-[#27272a]">
-        <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-1.5">Souk *</label>
-          <select required value={form.soukId} onChange={(e) => update("soukId", e.target.value)} className={inputClass}>
-            <option value="">Sélectionnez un souk</option>
-            {souks.map((s) => (
-              <option key={s.id} value={s.id}>{s.title} - {s.location}</option>
-            ))}
-          </select>
-        </div>
-
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1.5">Titre *</label>
           <input type="text" required value={form.title} onChange={(e) => update("title", e.target.value)}
@@ -172,7 +156,7 @@ function NewVehicleForm() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1.5">Prix souhaité (€)</label>
+            <label className="block text-sm font-medium text-zinc-300 mb-1.5">Prix souhaité (DZD)</label>
             <input type="number" min="0" step="0.01" value={form.price} onChange={(e) => update("price", e.target.value)}
               className={inputClass} placeholder="Optionnel" />
           </div>
@@ -195,9 +179,5 @@ function NewVehicleForm() {
 }
 
 export default function NewVehiclePage() {
-  return (
-    <Suspense fallback={<div className="flex justify-center py-20"><p className="text-zinc-500">Chargement...</p></div>}>
-      <NewVehicleForm />
-    </Suspense>
-  );
+  return <NewVehicleForm />;
 }

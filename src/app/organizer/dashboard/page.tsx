@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import StepsSection from "@/components/StepsSection";
 
 export const dynamic = "force-dynamic";
 
@@ -29,18 +30,40 @@ export default async function OrganizerDashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
+        <p className="text-sm text-zinc-500 mt-1">Gérez vos souks automobiles</p>
+      </div>
+
+      <StepsSection
+        title="Étapes à suivre"
+        steps={[
+          { label: "Créer votre compte organisateur", done: true, icon: "" },
+          { label: "Créer un souk", done: souks.length > 0, href: "/organizer/souks/new", icon: "M12 4v16m8-8H4" },
+          { label: "Ajouter les détails et services", done: souks.some((s) => s.services), icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" },
+          { label: "Gérer les inscriptions des vendeurs", done: souks.some((s) => s._count.registrations > 0), icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
+          { label: "Scanner les QR codes à l'entrée", done: false, icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" },
+        ]}
+      />
+
       <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
-          <p className="text-sm text-zinc-500 mt-1">Gérez vos souks automobiles</p>
+        <h2 className="text-base font-semibold text-white">Mes souks</h2>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/organizer/stats"
+            className="inline-flex items-center gap-1.5 px-3 py-2 border border-[#27272a] text-zinc-400 text-sm font-medium rounded-lg hover:bg-[#27272a] transition-all duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            Statistiques
+          </Link>
+          <Link
+            href="/organizer/souks/new"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-black text-sm font-medium rounded-lg hover:bg-amber-400 transition-all duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            Créer un souk
+          </Link>
         </div>
-        <Link
-          href="/organizer/souks/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-black text-sm font-medium rounded-lg hover:bg-amber-400 transition-all duration-200"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
-          Créer un souk
-        </Link>
       </div>
 
       {souks.length === 0 ? (
