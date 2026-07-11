@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import DonutChart from "@/components/DonutChart";
+import BarChart from "@/components/BarChart";
 
 export const dynamic = "force-dynamic";
 
@@ -9,22 +11,25 @@ export default async function AdminDashboardPage() {
   const user = await getAuthUser();
   if (!user || user.role !== "admin") redirect("/login");
 
-  const [usersCount, organizersCount, sellersCount, visitorsCount] = await Promise.all([
+  const [usersCount, organizersCount, sellersCount, visitorsCount, adminsCount] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { role: "organizer" } }),
     prisma.user.count({ where: { role: "seller" } }),
     prisma.user.count({ where: { role: "visitor" } }),
+    prisma.user.count({ where: { role: "admin" } }),
   ]);
 
-  const [souksCount, activeSouks, completedSouks, cancelledSouks] = await Promise.all([
+  const [souksCount, activeSouks, pendingSouks, completedSouks, cancelledSouks] = await Promise.all([
     prisma.souk.count(),
     prisma.souk.count({ where: { status: "active" } }),
+    prisma.souk.count({ where: { status: "pending" } }),
     prisma.souk.count({ where: { status: "completed" } }),
     prisma.souk.count({ where: { status: "cancelled" } }),
   ]);
 
-  const [vehiclesCount, soldVehicles] = await Promise.all([
+  const [vehiclesCount, pendingVehicles, soldVehicles] = await Promise.all([
     prisma.vehicle.count(),
+    prisma.vehicle.count({ where: { status: "pending" } }),
     prisma.vehicle.count({ where: { status: "sold" } }),
   ]);
 
@@ -35,12 +40,16 @@ export default async function AdminDashboardPage() {
 
   const registrationsCount = await prisma.soukRegistration.count();
 
+  const pendingRegistrations = await prisma.soukRegistration.count({
+    where: { status: "pending" },
+  });
+
   const stats = [
-    { label: "Utilisateurs", value: usersCount, sub: `${organizersCount} org · ${sellersCount} vend · ${visitorsCount} vis` },
-    { label: "Souks", value: souksCount, sub: `${activeSouks} actifs · ${completedSouks} terminés · ${cancelledSouks} annulés` },
-    { label: "Véhicules", value: vehiclesCount, sub: `${soldVehicles} vendus` },
+    { label: "Utilisateurs", value: usersCount, sub: `${organizersCount} org · ${sellersCount} vend · ${visitorsCount} vis · ${adminsCount} adm` },
+    { label: "Souks", value: souksCount, sub: `${activeSouks} actifs · ${pendingSouks} à venir · ${completedSouks} terminés · ${cancelledSouks} annulés` },
+    { label: "Véhicules", value: vehiclesCount, sub: `${soldVehicles} vendus · ${pendingVehicles} dispo` },
     { label: "Enchères", value: bidsCount, sub: `${totalBidAmount._sum.amount?.toLocaleString("fr-FR") || 0} DZD total` },
-    { label: "Inscriptions", value: registrationsCount, sub: "aux souks" },
+    { label: "Inscriptions", value: registrationsCount, sub: `${pendingRegistrations} en attente` },
   ];
 
   const recentSouks = await prisma.souk.findMany({
@@ -53,6 +62,36 @@ export default async function AdminDashboardPage() {
     orderBy: { createdAt: "desc" },
     take: 5,
   });
+
+  const souks = await prisma.souk.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 10,
+    include: { _count: { select: { vehicles: true, registrations: true } } },
+  });
+
+  const userRoleBreakdown = [
+    { label: "Visiteurs", value: visitorsCount, color: "#22c55e" },
+    { label: "Vendeurs", value: sellersCount, color: "#f59e0b" },
+    { label: "Organisateurs", value: organizersCount, color: "#3b82f6" },
+    { label: "Admins", value: adminsCount, color: "#a855f7" },
+  ];
+
+  const soukStatusBreakdown = [
+    { label: "Actif", value: activeSouks, color: "#22c55e" },
+    { label: "À venir", value: pendingSouks, color: "#eab308" },
+    { label: "Terminé", value: completedSouks, color: "#3b82f6" },
+    { label: "Annulé", value: cancelledSouks, color: "#ef4444" },
+  ];
+
+  const vehiclesPerSouk = souks.map((sk) => ({
+    label: sk.title.length > 18 ? sk.title.slice(0, 18) + "..." : sk.title,
+    value: sk._count.vehicles,
+  }));
+
+  const registrationsPerSouk = souks.map((sk) => ({
+    label: sk.title.length > 18 ? sk.title.slice(0, 18) + "..." : sk.title,
+    value: sk._count.registrations,
+  }));
 
   return (
     <div className="p-6 space-y-8">
@@ -69,6 +108,24 @@ export default async function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-600 mt-1">{s.sub}</p>
           </div>
         ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="p-5 bg-[#18181b] rounded-xl border border-[#27272a]">
+          <DonutChart title="Répartition des utilisateurs" data={userRoleBreakdown} />
+        </div>
+        <div className="p-5 bg-[#18181b] rounded-xl border border-[#27272a]">
+          <DonutChart title="Statut des souks" data={soukStatusBreakdown} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="p-5 bg-[#18181b] rounded-xl border border-[#27272a]">
+          <BarChart title="Véhicules par souk (top 10)" data={vehiclesPerSouk} />
+        </div>
+        <div className="p-5 bg-[#18181b] rounded-xl border border-[#27272a]">
+          <BarChart title="Inscriptions par souk (top 10)" data={registrationsPerSouk} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
