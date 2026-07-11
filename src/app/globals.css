@@ -58,13 +58,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body > .fixed {
-  display: none;
-}
+body > .orb-dark { display: block; }
+body > .orb-light { display: none; }
 
-.dark body > .fixed {
-  display: block;
-}
+.light body > .orb-dark { display: none; }
+.light body > .orb-light { display: block; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px) scale(1); }
