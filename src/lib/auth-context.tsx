@@ -8,6 +8,7 @@ type User = {
   name: string;
   role: string;
   phone: string | null;
+  balance: number;
 };
 
 type AuthContextType = {

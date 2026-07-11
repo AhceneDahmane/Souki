@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     return new Response(
       JSON.stringify({
-        user: { id: user.id, email: user.email, name: user.name, role: user.role, phone: user.phone },
+        user: { id: user.id, email: user.email, name: user.name, role: user.role, phone: user.phone, balance: user.balance },
       }),
       { status: 201, headers: { "Set-Cookie": createCookie(token) } },
     );

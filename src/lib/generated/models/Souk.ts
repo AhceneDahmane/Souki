@@ -27,11 +27,15 @@ export type AggregateSouk = {
 }
 
 export type SoukAvgAggregateOutputType = {
+  lat: number | null
+  lng: number | null
   spots: number | null
   spotPrice: number | null
 }
 
 export type SoukSumAggregateOutputType = {
+  lat: number | null
+  lng: number | null
   spots: number | null
   spotPrice: number | null
 }
@@ -41,6 +45,8 @@ export type SoukMinAggregateOutputType = {
   title: string | null
   description: string | null
   location: string | null
+  lat: number | null
+  lng: number | null
   date: Date | null
   startTime: string | null
   endTime: string | null
@@ -48,6 +54,7 @@ export type SoukMinAggregateOutputType = {
   spotPrice: number | null
   services: string | null
   status: string | null
+  paid: boolean | null
   organizerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -58,6 +65,8 @@ export type SoukMaxAggregateOutputType = {
   title: string | null
   description: string | null
   location: string | null
+  lat: number | null
+  lng: number | null
   date: Date | null
   startTime: string | null
   endTime: string | null
@@ -65,6 +74,7 @@ export type SoukMaxAggregateOutputType = {
   spotPrice: number | null
   services: string | null
   status: string | null
+  paid: boolean | null
   organizerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -75,6 +85,8 @@ export type SoukCountAggregateOutputType = {
   title: number
   description: number
   location: number
+  lat: number
+  lng: number
   date: number
   startTime: number
   endTime: number
@@ -82,6 +94,7 @@ export type SoukCountAggregateOutputType = {
   spotPrice: number
   services: number
   status: number
+  paid: number
   organizerId: number
   createdAt: number
   updatedAt: number
@@ -90,11 +103,15 @@ export type SoukCountAggregateOutputType = {
 
 
 export type SoukAvgAggregateInputType = {
+  lat?: true
+  lng?: true
   spots?: true
   spotPrice?: true
 }
 
 export type SoukSumAggregateInputType = {
+  lat?: true
+  lng?: true
   spots?: true
   spotPrice?: true
 }
@@ -104,6 +121,8 @@ export type SoukMinAggregateInputType = {
   title?: true
   description?: true
   location?: true
+  lat?: true
+  lng?: true
   date?: true
   startTime?: true
   endTime?: true
@@ -111,6 +130,7 @@ export type SoukMinAggregateInputType = {
   spotPrice?: true
   services?: true
   status?: true
+  paid?: true
   organizerId?: true
   createdAt?: true
   updatedAt?: true
@@ -121,6 +141,8 @@ export type SoukMaxAggregateInputType = {
   title?: true
   description?: true
   location?: true
+  lat?: true
+  lng?: true
   date?: true
   startTime?: true
   endTime?: true
@@ -128,6 +150,7 @@ export type SoukMaxAggregateInputType = {
   spotPrice?: true
   services?: true
   status?: true
+  paid?: true
   organizerId?: true
   createdAt?: true
   updatedAt?: true
@@ -138,6 +161,8 @@ export type SoukCountAggregateInputType = {
   title?: true
   description?: true
   location?: true
+  lat?: true
+  lng?: true
   date?: true
   startTime?: true
   endTime?: true
@@ -145,6 +170,7 @@ export type SoukCountAggregateInputType = {
   spotPrice?: true
   services?: true
   status?: true
+  paid?: true
   organizerId?: true
   createdAt?: true
   updatedAt?: true
@@ -242,6 +268,8 @@ export type SoukGroupByOutputType = {
   title: string
   description: string | null
   location: string
+  lat: number | null
+  lng: number | null
   date: Date
   startTime: string
   endTime: string | null
@@ -249,6 +277,7 @@ export type SoukGroupByOutputType = {
   spotPrice: number
   services: string | null
   status: string
+  paid: boolean
   organizerId: string
   createdAt: Date
   updatedAt: Date
@@ -282,6 +311,8 @@ export type SoukWhereInput = {
   title?: Prisma.StringFilter<"Souk"> | string
   description?: Prisma.StringNullableFilter<"Souk"> | string | null
   location?: Prisma.StringFilter<"Souk"> | string
+  lat?: Prisma.FloatNullableFilter<"Souk"> | number | null
+  lng?: Prisma.FloatNullableFilter<"Souk"> | number | null
   date?: Prisma.DateTimeFilter<"Souk"> | Date | string
   startTime?: Prisma.StringFilter<"Souk"> | string
   endTime?: Prisma.StringNullableFilter<"Souk"> | string | null
@@ -289,12 +320,14 @@ export type SoukWhereInput = {
   spotPrice?: Prisma.FloatFilter<"Souk"> | number
   services?: Prisma.StringNullableFilter<"Souk"> | string | null
   status?: Prisma.StringFilter<"Souk"> | string
+  paid?: Prisma.BoolFilter<"Souk"> | boolean
   organizerId?: Prisma.StringFilter<"Souk"> | string
   createdAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
   organizer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   registrations?: Prisma.SoukRegistrationListRelationFilter
   vehicles?: Prisma.VehicleListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }
 
 export type SoukOrderByWithRelationInput = {
@@ -302,6 +335,8 @@ export type SoukOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrder
+  lat?: Prisma.SortOrderInput | Prisma.SortOrder
+  lng?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -309,12 +344,14 @@ export type SoukOrderByWithRelationInput = {
   spotPrice?: Prisma.SortOrder
   services?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   organizer?: Prisma.UserOrderByWithRelationInput
   registrations?: Prisma.SoukRegistrationOrderByRelationAggregateInput
   vehicles?: Prisma.VehicleOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
 }
 
 export type SoukWhereUniqueInput = Prisma.AtLeast<{
@@ -325,6 +362,8 @@ export type SoukWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Souk"> | string
   description?: Prisma.StringNullableFilter<"Souk"> | string | null
   location?: Prisma.StringFilter<"Souk"> | string
+  lat?: Prisma.FloatNullableFilter<"Souk"> | number | null
+  lng?: Prisma.FloatNullableFilter<"Souk"> | number | null
   date?: Prisma.DateTimeFilter<"Souk"> | Date | string
   startTime?: Prisma.StringFilter<"Souk"> | string
   endTime?: Prisma.StringNullableFilter<"Souk"> | string | null
@@ -332,12 +371,14 @@ export type SoukWhereUniqueInput = Prisma.AtLeast<{
   spotPrice?: Prisma.FloatFilter<"Souk"> | number
   services?: Prisma.StringNullableFilter<"Souk"> | string | null
   status?: Prisma.StringFilter<"Souk"> | string
+  paid?: Prisma.BoolFilter<"Souk"> | boolean
   organizerId?: Prisma.StringFilter<"Souk"> | string
   createdAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
   organizer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   registrations?: Prisma.SoukRegistrationListRelationFilter
   vehicles?: Prisma.VehicleListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }, "id">
 
 export type SoukOrderByWithAggregationInput = {
@@ -345,6 +386,8 @@ export type SoukOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrder
+  lat?: Prisma.SortOrderInput | Prisma.SortOrder
+  lng?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -352,6 +395,7 @@ export type SoukOrderByWithAggregationInput = {
   spotPrice?: Prisma.SortOrder
   services?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -370,6 +414,8 @@ export type SoukScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Souk"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Souk"> | string | null
   location?: Prisma.StringWithAggregatesFilter<"Souk"> | string
+  lat?: Prisma.FloatNullableWithAggregatesFilter<"Souk"> | number | null
+  lng?: Prisma.FloatNullableWithAggregatesFilter<"Souk"> | number | null
   date?: Prisma.DateTimeWithAggregatesFilter<"Souk"> | Date | string
   startTime?: Prisma.StringWithAggregatesFilter<"Souk"> | string
   endTime?: Prisma.StringNullableWithAggregatesFilter<"Souk"> | string | null
@@ -377,6 +423,7 @@ export type SoukScalarWhereWithAggregatesInput = {
   spotPrice?: Prisma.FloatWithAggregatesFilter<"Souk"> | number
   services?: Prisma.StringNullableWithAggregatesFilter<"Souk"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Souk"> | string
+  paid?: Prisma.BoolWithAggregatesFilter<"Souk"> | boolean
   organizerId?: Prisma.StringWithAggregatesFilter<"Souk"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Souk"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Souk"> | Date | string
@@ -387,6 +434,8 @@ export type SoukCreateInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -394,11 +443,13 @@ export type SoukCreateInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organizer: Prisma.UserCreateNestedOneWithoutSouksInput
   registrations?: Prisma.SoukRegistrationCreateNestedManyWithoutSoukInput
   vehicles?: Prisma.VehicleCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSoukInput
 }
 
 export type SoukUncheckedCreateInput = {
@@ -406,6 +457,8 @@ export type SoukUncheckedCreateInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -413,11 +466,13 @@ export type SoukUncheckedCreateInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   organizerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.SoukRegistrationUncheckedCreateNestedManyWithoutSoukInput
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSoukInput
 }
 
 export type SoukUpdateInput = {
@@ -425,6 +480,8 @@ export type SoukUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -432,11 +489,13 @@ export type SoukUpdateInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organizer?: Prisma.UserUpdateOneRequiredWithoutSouksNestedInput
   registrations?: Prisma.SoukRegistrationUpdateManyWithoutSoukNestedInput
   vehicles?: Prisma.VehicleUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukUncheckedUpdateInput = {
@@ -444,6 +503,8 @@ export type SoukUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -451,11 +512,13 @@ export type SoukUncheckedUpdateInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   organizerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.SoukRegistrationUncheckedUpdateManyWithoutSoukNestedInput
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukCreateManyInput = {
@@ -463,6 +526,8 @@ export type SoukCreateManyInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -470,6 +535,7 @@ export type SoukCreateManyInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   organizerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -480,6 +546,8 @@ export type SoukUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -487,6 +555,7 @@ export type SoukUpdateManyMutationInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -496,6 +565,8 @@ export type SoukUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -503,6 +574,7 @@ export type SoukUncheckedUpdateManyInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   organizerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -523,6 +595,8 @@ export type SoukCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   date?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
@@ -530,12 +604,15 @@ export type SoukCountOrderByAggregateInput = {
   spotPrice?: Prisma.SortOrder
   services?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SoukAvgOrderByAggregateInput = {
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   spots?: Prisma.SortOrder
   spotPrice?: Prisma.SortOrder
 }
@@ -545,6 +622,8 @@ export type SoukMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   date?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
@@ -552,6 +631,7 @@ export type SoukMaxOrderByAggregateInput = {
   spotPrice?: Prisma.SortOrder
   services?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -562,6 +642,8 @@ export type SoukMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   date?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
@@ -569,12 +651,15 @@ export type SoukMinOrderByAggregateInput = {
   spotPrice?: Prisma.SortOrder
   services?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SoukSumOrderByAggregateInput = {
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   spots?: Prisma.SortOrder
   spotPrice?: Prisma.SortOrder
 }
@@ -631,6 +716,14 @@ export type SoukUncheckedUpdateManyWithoutOrganizerNestedInput = {
   deleteMany?: Prisma.SoukScalarWhereInput | Prisma.SoukScalarWhereInput[]
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -639,12 +732,8 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type SoukCreateNestedOneWithoutVehiclesInput = {
@@ -677,11 +766,29 @@ export type SoukUpdateOneRequiredWithoutRegistrationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SoukUpdateToOneWithWhereWithoutRegistrationsInput, Prisma.SoukUpdateWithoutRegistrationsInput>, Prisma.SoukUncheckedUpdateWithoutRegistrationsInput>
 }
 
+export type SoukCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.SoukCreateWithoutPaymentsInput, Prisma.SoukUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.SoukCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.SoukWhereUniqueInput
+}
+
+export type SoukUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.SoukCreateWithoutPaymentsInput, Prisma.SoukUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.SoukCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.SoukUpsertWithoutPaymentsInput
+  disconnect?: Prisma.SoukWhereInput | boolean
+  delete?: Prisma.SoukWhereInput | boolean
+  connect?: Prisma.SoukWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SoukUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SoukUpdateWithoutPaymentsInput>, Prisma.SoukUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type SoukCreateWithoutOrganizerInput = {
   id?: string
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -689,10 +796,12 @@ export type SoukCreateWithoutOrganizerInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.SoukRegistrationCreateNestedManyWithoutSoukInput
   vehicles?: Prisma.VehicleCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSoukInput
 }
 
 export type SoukUncheckedCreateWithoutOrganizerInput = {
@@ -700,6 +809,8 @@ export type SoukUncheckedCreateWithoutOrganizerInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -707,10 +818,12 @@ export type SoukUncheckedCreateWithoutOrganizerInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.SoukRegistrationUncheckedCreateNestedManyWithoutSoukInput
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSoukInput
 }
 
 export type SoukCreateOrConnectWithoutOrganizerInput = {
@@ -746,6 +859,8 @@ export type SoukScalarWhereInput = {
   title?: Prisma.StringFilter<"Souk"> | string
   description?: Prisma.StringNullableFilter<"Souk"> | string | null
   location?: Prisma.StringFilter<"Souk"> | string
+  lat?: Prisma.FloatNullableFilter<"Souk"> | number | null
+  lng?: Prisma.FloatNullableFilter<"Souk"> | number | null
   date?: Prisma.DateTimeFilter<"Souk"> | Date | string
   startTime?: Prisma.StringFilter<"Souk"> | string
   endTime?: Prisma.StringNullableFilter<"Souk"> | string | null
@@ -753,6 +868,7 @@ export type SoukScalarWhereInput = {
   spotPrice?: Prisma.FloatFilter<"Souk"> | number
   services?: Prisma.StringNullableFilter<"Souk"> | string | null
   status?: Prisma.StringFilter<"Souk"> | string
+  paid?: Prisma.BoolFilter<"Souk"> | boolean
   organizerId?: Prisma.StringFilter<"Souk"> | string
   createdAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Souk"> | Date | string
@@ -763,6 +879,8 @@ export type SoukCreateWithoutVehiclesInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -770,10 +888,12 @@ export type SoukCreateWithoutVehiclesInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organizer: Prisma.UserCreateNestedOneWithoutSouksInput
   registrations?: Prisma.SoukRegistrationCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSoukInput
 }
 
 export type SoukUncheckedCreateWithoutVehiclesInput = {
@@ -781,6 +901,8 @@ export type SoukUncheckedCreateWithoutVehiclesInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -788,10 +910,12 @@ export type SoukUncheckedCreateWithoutVehiclesInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   organizerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.SoukRegistrationUncheckedCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSoukInput
 }
 
 export type SoukCreateOrConnectWithoutVehiclesInput = {
@@ -815,6 +939,8 @@ export type SoukUpdateWithoutVehiclesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -822,10 +948,12 @@ export type SoukUpdateWithoutVehiclesInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organizer?: Prisma.UserUpdateOneRequiredWithoutSouksNestedInput
   registrations?: Prisma.SoukRegistrationUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukUncheckedUpdateWithoutVehiclesInput = {
@@ -833,6 +961,8 @@ export type SoukUncheckedUpdateWithoutVehiclesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -840,10 +970,12 @@ export type SoukUncheckedUpdateWithoutVehiclesInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   organizerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.SoukRegistrationUncheckedUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukCreateWithoutRegistrationsInput = {
@@ -851,6 +983,8 @@ export type SoukCreateWithoutRegistrationsInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -858,10 +992,12 @@ export type SoukCreateWithoutRegistrationsInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   organizer: Prisma.UserCreateNestedOneWithoutSouksInput
   vehicles?: Prisma.VehicleCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSoukInput
 }
 
 export type SoukUncheckedCreateWithoutRegistrationsInput = {
@@ -869,6 +1005,8 @@ export type SoukUncheckedCreateWithoutRegistrationsInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -876,10 +1014,12 @@ export type SoukUncheckedCreateWithoutRegistrationsInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   organizerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutSoukInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSoukInput
 }
 
 export type SoukCreateOrConnectWithoutRegistrationsInput = {
@@ -903,6 +1043,8 @@ export type SoukUpdateWithoutRegistrationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -910,10 +1052,12 @@ export type SoukUpdateWithoutRegistrationsInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organizer?: Prisma.UserUpdateOneRequiredWithoutSouksNestedInput
   vehicles?: Prisma.VehicleUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukUncheckedUpdateWithoutRegistrationsInput = {
@@ -921,6 +1065,8 @@ export type SoukUncheckedUpdateWithoutRegistrationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -928,9 +1074,115 @@ export type SoukUncheckedUpdateWithoutRegistrationsInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   organizerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSoukNestedInput
+}
+
+export type SoukCreateWithoutPaymentsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  location: string
+  lat?: number | null
+  lng?: number | null
+  date: Date | string
+  startTime: string
+  endTime?: string | null
+  spots: number
+  spotPrice: number
+  services?: string | null
+  status?: string
+  paid?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organizer: Prisma.UserCreateNestedOneWithoutSouksInput
+  registrations?: Prisma.SoukRegistrationCreateNestedManyWithoutSoukInput
+  vehicles?: Prisma.VehicleCreateNestedManyWithoutSoukInput
+}
+
+export type SoukUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  location: string
+  lat?: number | null
+  lng?: number | null
+  date: Date | string
+  startTime: string
+  endTime?: string | null
+  spots: number
+  spotPrice: number
+  services?: string | null
+  status?: string
+  paid?: boolean
+  organizerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  registrations?: Prisma.SoukRegistrationUncheckedCreateNestedManyWithoutSoukInput
+  vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutSoukInput
+}
+
+export type SoukCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.SoukWhereUniqueInput
+  create: Prisma.XOR<Prisma.SoukCreateWithoutPaymentsInput, Prisma.SoukUncheckedCreateWithoutPaymentsInput>
+}
+
+export type SoukUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.SoukUpdateWithoutPaymentsInput, Prisma.SoukUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.SoukCreateWithoutPaymentsInput, Prisma.SoukUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.SoukWhereInput
+}
+
+export type SoukUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.SoukWhereInput
+  data: Prisma.XOR<Prisma.SoukUpdateWithoutPaymentsInput, Prisma.SoukUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type SoukUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spots?: Prisma.IntFieldUpdateOperationsInput | number
+  spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organizer?: Prisma.UserUpdateOneRequiredWithoutSouksNestedInput
+  registrations?: Prisma.SoukRegistrationUpdateManyWithoutSoukNestedInput
+  vehicles?: Prisma.VehicleUpdateManyWithoutSoukNestedInput
+}
+
+export type SoukUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spots?: Prisma.IntFieldUpdateOperationsInput | number
+  spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  organizerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  registrations?: Prisma.SoukRegistrationUncheckedUpdateManyWithoutSoukNestedInput
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutSoukNestedInput
 }
 
@@ -939,6 +1191,8 @@ export type SoukCreateManyOrganizerInput = {
   title: string
   description?: string | null
   location: string
+  lat?: number | null
+  lng?: number | null
   date: Date | string
   startTime: string
   endTime?: string | null
@@ -946,6 +1200,7 @@ export type SoukCreateManyOrganizerInput = {
   spotPrice: number
   services?: string | null
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -955,6 +1210,8 @@ export type SoukUpdateWithoutOrganizerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -962,10 +1219,12 @@ export type SoukUpdateWithoutOrganizerInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.SoukRegistrationUpdateManyWithoutSoukNestedInput
   vehicles?: Prisma.VehicleUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukUncheckedUpdateWithoutOrganizerInput = {
@@ -973,6 +1232,8 @@ export type SoukUncheckedUpdateWithoutOrganizerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -980,10 +1241,12 @@ export type SoukUncheckedUpdateWithoutOrganizerInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.SoukRegistrationUncheckedUpdateManyWithoutSoukNestedInput
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutSoukNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSoukNestedInput
 }
 
 export type SoukUncheckedUpdateManyWithoutOrganizerInput = {
@@ -991,6 +1254,8 @@ export type SoukUncheckedUpdateManyWithoutOrganizerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -998,6 +1263,7 @@ export type SoukUncheckedUpdateManyWithoutOrganizerInput = {
   spotPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   services?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1010,11 +1276,13 @@ export type SoukUncheckedUpdateManyWithoutOrganizerInput = {
 export type SoukCountOutputType = {
   registrations: number
   vehicles: number
+  payments: number
 }
 
 export type SoukCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   registrations?: boolean | SoukCountOutputTypeCountRegistrationsArgs
   vehicles?: boolean | SoukCountOutputTypeCountVehiclesArgs
+  payments?: boolean | SoukCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -1041,12 +1309,21 @@ export type SoukCountOutputTypeCountVehiclesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.VehicleWhereInput
 }
 
+/**
+ * SoukCountOutputType without action
+ */
+export type SoukCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
 
 export type SoukSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
   location?: boolean
+  lat?: boolean
+  lng?: boolean
   date?: boolean
   startTime?: boolean
   endTime?: boolean
@@ -1054,12 +1331,14 @@ export type SoukSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   spotPrice?: boolean
   services?: boolean
   status?: boolean
+  paid?: boolean
   organizerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   registrations?: boolean | Prisma.Souk$registrationsArgs<ExtArgs>
   vehicles?: boolean | Prisma.Souk$vehiclesArgs<ExtArgs>
+  payments?: boolean | Prisma.Souk$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.SoukCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["souk"]>
 
@@ -1068,6 +1347,8 @@ export type SoukSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   description?: boolean
   location?: boolean
+  lat?: boolean
+  lng?: boolean
   date?: boolean
   startTime?: boolean
   endTime?: boolean
@@ -1075,6 +1356,7 @@ export type SoukSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   spotPrice?: boolean
   services?: boolean
   status?: boolean
+  paid?: boolean
   organizerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1086,6 +1368,8 @@ export type SoukSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   description?: boolean
   location?: boolean
+  lat?: boolean
+  lng?: boolean
   date?: boolean
   startTime?: boolean
   endTime?: boolean
@@ -1093,6 +1377,7 @@ export type SoukSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   spotPrice?: boolean
   services?: boolean
   status?: boolean
+  paid?: boolean
   organizerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1104,6 +1389,8 @@ export type SoukSelectScalar = {
   title?: boolean
   description?: boolean
   location?: boolean
+  lat?: boolean
+  lng?: boolean
   date?: boolean
   startTime?: boolean
   endTime?: boolean
@@ -1111,16 +1398,18 @@ export type SoukSelectScalar = {
   spotPrice?: boolean
   services?: boolean
   status?: boolean
+  paid?: boolean
   organizerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SoukOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "location" | "date" | "startTime" | "endTime" | "spots" | "spotPrice" | "services" | "status" | "organizerId" | "createdAt" | "updatedAt", ExtArgs["result"]["souk"]>
+export type SoukOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "location" | "lat" | "lng" | "date" | "startTime" | "endTime" | "spots" | "spotPrice" | "services" | "status" | "paid" | "organizerId" | "createdAt" | "updatedAt", ExtArgs["result"]["souk"]>
 export type SoukInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   registrations?: boolean | Prisma.Souk$registrationsArgs<ExtArgs>
   vehicles?: boolean | Prisma.Souk$vehiclesArgs<ExtArgs>
+  payments?: boolean | Prisma.Souk$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.SoukCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SoukIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1136,12 +1425,15 @@ export type $SoukPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     organizer: Prisma.$UserPayload<ExtArgs>
     registrations: Prisma.$SoukRegistrationPayload<ExtArgs>[]
     vehicles: Prisma.$VehiclePayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     description: string | null
     location: string
+    lat: number | null
+    lng: number | null
     date: Date
     startTime: string
     endTime: string | null
@@ -1149,6 +1441,7 @@ export type $SoukPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     spotPrice: number
     services: string | null
     status: string
+    paid: boolean
     organizerId: string
     createdAt: Date
     updatedAt: Date
@@ -1549,6 +1842,7 @@ export interface Prisma__SoukClient<T, Null = never, ExtArgs extends runtime.Typ
   organizer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   registrations<T extends Prisma.Souk$registrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Souk$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SoukRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vehicles<T extends Prisma.Souk$vehiclesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Souk$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.Souk$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Souk$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1582,6 +1876,8 @@ export interface SoukFieldRefs {
   readonly title: Prisma.FieldRef<"Souk", 'String'>
   readonly description: Prisma.FieldRef<"Souk", 'String'>
   readonly location: Prisma.FieldRef<"Souk", 'String'>
+  readonly lat: Prisma.FieldRef<"Souk", 'Float'>
+  readonly lng: Prisma.FieldRef<"Souk", 'Float'>
   readonly date: Prisma.FieldRef<"Souk", 'DateTime'>
   readonly startTime: Prisma.FieldRef<"Souk", 'String'>
   readonly endTime: Prisma.FieldRef<"Souk", 'String'>
@@ -1589,6 +1885,7 @@ export interface SoukFieldRefs {
   readonly spotPrice: Prisma.FieldRef<"Souk", 'Float'>
   readonly services: Prisma.FieldRef<"Souk", 'String'>
   readonly status: Prisma.FieldRef<"Souk", 'String'>
+  readonly paid: Prisma.FieldRef<"Souk", 'Boolean'>
   readonly organizerId: Prisma.FieldRef<"Souk", 'String'>
   readonly createdAt: Prisma.FieldRef<"Souk", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Souk", 'DateTime'>
@@ -2031,6 +2328,30 @@ export type Souk$vehiclesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.VehicleScalarFieldEnum | Prisma.VehicleScalarFieldEnum[]
+}
+
+/**
+ * Souk.payments
+ */
+export type Souk$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

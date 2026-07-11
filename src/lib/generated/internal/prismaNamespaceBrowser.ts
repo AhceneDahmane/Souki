@@ -54,7 +54,10 @@ export const ModelName = {
   Vehicle: 'Vehicle',
   SoukRegistration: 'SoukRegistration',
   Bid: 'Bid',
-  VehicleAccess: 'VehicleAccess'
+  VehicleAccess: 'VehicleAccess',
+  Favorite: 'Favorite',
+  Notification: 'Notification',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -77,6 +80,7 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   phone: 'phone',
+  balance: 'balance',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -89,6 +93,8 @@ export const SoukScalarFieldEnum = {
   title: 'title',
   description: 'description',
   location: 'location',
+  lat: 'lat',
+  lng: 'lng',
   date: 'date',
   startTime: 'startTime',
   endTime: 'endTime',
@@ -96,6 +102,7 @@ export const SoukScalarFieldEnum = {
   spotPrice: 'spotPrice',
   services: 'services',
   status: 'status',
+  paid: 'paid',
   organizerId: 'organizerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -134,6 +141,7 @@ export const SoukRegistrationScalarFieldEnum = {
   spotNumber: 'spotNumber',
   qrCode: 'qrCode',
   status: 'status',
+  paid: 'paid',
   createdAt: 'createdAt'
 } as const
 
@@ -160,6 +168,44 @@ export const VehicleAccessScalarFieldEnum = {
 } as const
 
 export type VehicleAccessScalarFieldEnum = (typeof VehicleAccessScalarFieldEnum)[keyof typeof VehicleAccessScalarFieldEnum]
+
+
+export const FavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  vehicleId: 'vehicleId',
+  createdAt: 'createdAt'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  link: 'link',
+  read: 'read',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  amount: 'amount',
+  description: 'description',
+  referenceId: 'referenceId',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {

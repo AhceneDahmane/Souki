@@ -4,8 +4,10 @@ import Logo from "./Logo";
 const links = {
   Plateforme: [
     { label: "Souks", href: "/souks" },
+    { label: "Carte", href: "/souks/map" },
     { label: "API", href: "/api-docs" },
     { label: "Tarifs", href: "/#offres" },
+    { label: "FAQ", href: "/faq" },
   ],
   Profils: [
     { label: "Visiteur", href: "/register" },
@@ -13,9 +15,10 @@ const links = {
     { label: "Organisateur", href: "/register" },
   ],
   Légal: [
-    { label: "Confidentialité", href: "#" },
-    { label: "CGU", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "CGU", href: "/cgu" },
+    { label: "Cookies", href: "/cookies" },
+    { label: "Contact", href: "/contact" },
+    { label: "FAQ", href: "/faq" },
   ],
 };
 

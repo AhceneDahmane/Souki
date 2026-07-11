@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateQRCode } from "@/lib/qrcode";
 import { getAuthUser } from "@/lib/auth";
+import { createNotification } from "@/lib/notifications";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -43,11 +44,35 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         return Response.json({ error: "Plus de places disponibles" }, { status: 400 });
       }
 
+      if ((user.balance ?? 0) < souk.spotPrice) {
+        return Response.json({ error: "Solde insuffisant. Rechargez votre portefeuille." }, { status: 400 });
+      }
+
       const qrData = JSON.stringify({ type: "souk-access", soukId: id, sellerId });
       const qrCode = await generateQRCode(qrData);
 
-      registration = await prisma.soukRegistration.create({
-        data: { soukId: id, sellerId, qrCode },
+      registration = await prisma.$transaction(async (tx) => {
+        const reg = await tx.soukRegistration.create({
+          data: { soukId: id, sellerId, qrCode, paid: true },
+        });
+
+        await tx.user.update({
+          where: { id: sellerId },
+          data: { balance: { decrement: souk.spotPrice } },
+        });
+
+        await tx.payment.create({
+          data: {
+            userId: sellerId,
+            type: "registration",
+            amount: -souk.spotPrice,
+            description: `Inscription au souk "${souk.title}"`,
+            referenceId: id,
+            status: "completed",
+          },
+        });
+
+        return reg;
       });
     }
 
@@ -92,6 +117,25 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       where: { id: registrationId },
       data: updateData,
     });
+
+    // Notify seller of status change
+    if (action === "accepted") {
+      await createNotification({
+        userId: registration.sellerId,
+        type: "registration_accepted",
+        title: "Inscription acceptée",
+        message: "Votre inscription au souk a été acceptée par l'organisateur.",
+        link: `/seller/dashboard`,
+      });
+    } else if (action === "rejected") {
+      await createNotification({
+        userId: registration.sellerId,
+        type: "registration_rejected",
+        title: "Inscription refusée",
+        message: "Votre inscription au souk a été refusée par l'organisateur.",
+        link: `/seller/dashboard`,
+      });
+    }
 
     // If present, generate vehicle QR codes for any vehicles missing them
     if (action === "present") {

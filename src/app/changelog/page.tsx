@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { changelog } from "@/data/changelog";
+
+export const metadata: Metadata = {
+  title: "Changelog",
+  description: "Suivez les dernières mises à jour et nouveautés de la plateforme Souki.",
+};
 
 const typeStyles = {
   feature: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",

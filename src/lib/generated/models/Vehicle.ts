@@ -324,6 +324,7 @@ export type VehicleWhereInput = {
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
   accessLogs?: Prisma.VehicleAccessListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }
 
 export type VehicleOrderByWithRelationInput = {
@@ -348,6 +349,7 @@ export type VehicleOrderByWithRelationInput = {
   seller?: Prisma.UserOrderByWithRelationInput
   bids?: Prisma.BidOrderByRelationAggregateInput
   accessLogs?: Prisma.VehicleAccessOrderByRelationAggregateInput
+  favorites?: Prisma.FavoriteOrderByRelationAggregateInput
 }
 
 export type VehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -375,6 +377,7 @@ export type VehicleWhereUniqueInput = Prisma.AtLeast<{
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
   accessLogs?: Prisma.VehicleAccessListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }, "id">
 
 export type VehicleOrderByWithAggregationInput = {
@@ -445,6 +448,7 @@ export type VehicleCreateInput = {
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateInput = {
@@ -467,6 +471,7 @@ export type VehicleUncheckedCreateInput = {
   updatedAt?: Date | string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessUncheckedCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUpdateInput = {
@@ -489,6 +494,7 @@ export type VehicleUpdateInput = {
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateInput = {
@@ -511,6 +517,7 @@ export type VehicleUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUncheckedUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateManyInput = {
@@ -750,14 +757,6 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type VehicleCreateNestedOneWithoutBidsInput = {
   create?: Prisma.XOR<Prisma.VehicleCreateWithoutBidsInput, Prisma.VehicleUncheckedCreateWithoutBidsInput>
   connectOrCreate?: Prisma.VehicleCreateOrConnectWithoutBidsInput
@@ -786,6 +785,20 @@ export type VehicleUpdateOneRequiredWithoutAccessLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VehicleUpdateToOneWithWhereWithoutAccessLogsInput, Prisma.VehicleUpdateWithoutAccessLogsInput>, Prisma.VehicleUncheckedUpdateWithoutAccessLogsInput>
 }
 
+export type VehicleCreateNestedOneWithoutFavoritesInput = {
+  create?: Prisma.XOR<Prisma.VehicleCreateWithoutFavoritesInput, Prisma.VehicleUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.VehicleCreateOrConnectWithoutFavoritesInput
+  connect?: Prisma.VehicleWhereUniqueInput
+}
+
+export type VehicleUpdateOneRequiredWithoutFavoritesNestedInput = {
+  create?: Prisma.XOR<Prisma.VehicleCreateWithoutFavoritesInput, Prisma.VehicleUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.VehicleCreateOrConnectWithoutFavoritesInput
+  upsert?: Prisma.VehicleUpsertWithoutFavoritesInput
+  connect?: Prisma.VehicleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VehicleUpdateToOneWithWhereWithoutFavoritesInput, Prisma.VehicleUpdateWithoutFavoritesInput>, Prisma.VehicleUncheckedUpdateWithoutFavoritesInput>
+}
+
 export type VehicleCreateWithoutSellerInput = {
   id?: string
   title: string
@@ -805,6 +818,7 @@ export type VehicleCreateWithoutSellerInput = {
   souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutSellerInput = {
@@ -826,6 +840,7 @@ export type VehicleUncheckedCreateWithoutSellerInput = {
   updatedAt?: Date | string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessUncheckedCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutSellerInput = {
@@ -895,6 +910,7 @@ export type VehicleCreateWithoutSoukInput = {
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutSoukInput = {
@@ -916,6 +932,7 @@ export type VehicleUncheckedCreateWithoutSoukInput = {
   updatedAt?: Date | string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
   accessLogs?: Prisma.VehicleAccessUncheckedCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutSoukInput = {
@@ -962,6 +979,7 @@ export type VehicleCreateWithoutBidsInput = {
   souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutBidsInput = {
@@ -983,6 +1001,7 @@ export type VehicleUncheckedCreateWithoutBidsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   accessLogs?: Prisma.VehicleAccessUncheckedCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutBidsInput = {
@@ -1020,6 +1039,7 @@ export type VehicleUpdateWithoutBidsInput = {
   souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutBidsInput = {
@@ -1041,6 +1061,7 @@ export type VehicleUncheckedUpdateWithoutBidsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accessLogs?: Prisma.VehicleAccessUncheckedUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateWithoutAccessLogsInput = {
@@ -1062,6 +1083,7 @@ export type VehicleCreateWithoutAccessLogsInput = {
   souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
   seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
   bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutAccessLogsInput = {
@@ -1083,6 +1105,7 @@ export type VehicleUncheckedCreateWithoutAccessLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutAccessLogsInput = {
@@ -1120,6 +1143,7 @@ export type VehicleUpdateWithoutAccessLogsInput = {
   souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutAccessLogsInput = {
@@ -1141,6 +1165,111 @@ export type VehicleUncheckedUpdateWithoutAccessLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutVehicleNestedInput
+}
+
+export type VehicleCreateWithoutFavoritesInput = {
+  id?: string
+  title: string
+  brand: string
+  model: string
+  year?: number | null
+  mileage?: number | null
+  fuelType?: string | null
+  description?: string | null
+  price?: number | null
+  priceType?: string
+  images?: string | null
+  qrCode?: string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  souk?: Prisma.SoukCreateNestedOneWithoutVehiclesInput
+  seller: Prisma.UserCreateNestedOneWithoutVehiclesInput
+  bids?: Prisma.BidCreateNestedManyWithoutVehicleInput
+  accessLogs?: Prisma.VehicleAccessCreateNestedManyWithoutVehicleInput
+}
+
+export type VehicleUncheckedCreateWithoutFavoritesInput = {
+  id?: string
+  title: string
+  brand: string
+  model: string
+  year?: number | null
+  mileage?: number | null
+  fuelType?: string | null
+  description?: string | null
+  price?: number | null
+  priceType?: string
+  images?: string | null
+  qrCode?: string | null
+  status?: string
+  soukId?: string | null
+  sellerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutVehicleInput
+  accessLogs?: Prisma.VehicleAccessUncheckedCreateNestedManyWithoutVehicleInput
+}
+
+export type VehicleCreateOrConnectWithoutFavoritesInput = {
+  where: Prisma.VehicleWhereUniqueInput
+  create: Prisma.XOR<Prisma.VehicleCreateWithoutFavoritesInput, Prisma.VehicleUncheckedCreateWithoutFavoritesInput>
+}
+
+export type VehicleUpsertWithoutFavoritesInput = {
+  update: Prisma.XOR<Prisma.VehicleUpdateWithoutFavoritesInput, Prisma.VehicleUncheckedUpdateWithoutFavoritesInput>
+  create: Prisma.XOR<Prisma.VehicleCreateWithoutFavoritesInput, Prisma.VehicleUncheckedCreateWithoutFavoritesInput>
+  where?: Prisma.VehicleWhereInput
+}
+
+export type VehicleUpdateToOneWithWhereWithoutFavoritesInput = {
+  where?: Prisma.VehicleWhereInput
+  data: Prisma.XOR<Prisma.VehicleUpdateWithoutFavoritesInput, Prisma.VehicleUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type VehicleUpdateWithoutFavoritesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.StringFieldUpdateOperationsInput | string
+  model?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fuelType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  priceType?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
+  seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
+  bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
+  accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
+}
+
+export type VehicleUncheckedUpdateWithoutFavoritesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.StringFieldUpdateOperationsInput | string
+  model?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fuelType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  priceType?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  soukId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
+  accessLogs?: Prisma.VehicleAccessUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateManySellerInput = {
@@ -1181,6 +1310,7 @@ export type VehicleUpdateWithoutSellerInput = {
   souk?: Prisma.SoukUpdateOneWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutSellerInput = {
@@ -1202,6 +1332,7 @@ export type VehicleUncheckedUpdateWithoutSellerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUncheckedUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateManyWithoutSellerInput = {
@@ -1261,6 +1392,7 @@ export type VehicleUpdateWithoutSoukInput = {
   seller?: Prisma.UserUpdateOneRequiredWithoutVehiclesNestedInput
   bids?: Prisma.BidUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutSoukInput = {
@@ -1282,6 +1414,7 @@ export type VehicleUncheckedUpdateWithoutSoukInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutVehicleNestedInput
   accessLogs?: Prisma.VehicleAccessUncheckedUpdateManyWithoutVehicleNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateManyWithoutSoukInput = {
@@ -1311,11 +1444,13 @@ export type VehicleUncheckedUpdateManyWithoutSoukInput = {
 export type VehicleCountOutputType = {
   bids: number
   accessLogs: number
+  favorites: number
 }
 
 export type VehicleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bids?: boolean | VehicleCountOutputTypeCountBidsArgs
   accessLogs?: boolean | VehicleCountOutputTypeCountAccessLogsArgs
+  favorites?: boolean | VehicleCountOutputTypeCountFavoritesArgs
 }
 
 /**
@@ -1342,6 +1477,13 @@ export type VehicleCountOutputTypeCountAccessLogsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.VehicleAccessWhereInput
 }
 
+/**
+ * VehicleCountOutputType without action
+ */
+export type VehicleCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FavoriteWhereInput
+}
+
 
 export type VehicleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1365,6 +1507,7 @@ export type VehicleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Vehicle$bidsArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Vehicle$accessLogsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Vehicle$favoritesArgs<ExtArgs>
   _count?: boolean | Prisma.VehicleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehicle"]>
 
@@ -1438,6 +1581,7 @@ export type VehicleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Vehicle$bidsArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Vehicle$accessLogsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Vehicle$favoritesArgs<ExtArgs>
   _count?: boolean | Prisma.VehicleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VehicleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1456,6 +1600,7 @@ export type $VehiclePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     seller: Prisma.$UserPayload<ExtArgs>
     bids: Prisma.$BidPayload<ExtArgs>[]
     accessLogs: Prisma.$VehicleAccessPayload<ExtArgs>[]
+    favorites: Prisma.$FavoritePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1873,6 +2018,7 @@ export interface Prisma__VehicleClient<T, Null = never, ExtArgs extends runtime.
   seller<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bids<T extends Prisma.Vehicle$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accessLogs<T extends Prisma.Vehicle$accessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VehicleAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favorites<T extends Prisma.Vehicle$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2377,6 +2523,30 @@ export type Vehicle$accessLogsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.VehicleAccessScalarFieldEnum | Prisma.VehicleAccessScalarFieldEnum[]
+}
+
+/**
+ * Vehicle.favorites
+ */
+export type Vehicle$favoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Favorite
+   */
+  select?: Prisma.FavoriteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Favorite
+   */
+  omit?: Prisma.FavoriteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FavoriteInclude<ExtArgs> | null
+  where?: Prisma.FavoriteWhereInput
+  orderBy?: Prisma.FavoriteOrderByWithRelationInput | Prisma.FavoriteOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
 }
 
 /**

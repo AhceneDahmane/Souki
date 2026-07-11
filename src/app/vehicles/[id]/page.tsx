@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import VehicleDetailClient from "./VehicleDetailClient";
+import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -91,7 +92,9 @@ export default async function VehicleDetailPage({
                     {vehicle.year ? ` · ${vehicle.year}` : ""}
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="flex items-center gap-2">
+                  <FavoriteButton vehicleId={vehicle.id} />
+                  <div className="text-right">
                   <p className="text-xl font-bold text-amber-400">
                     {vehicle.price
                       ? `${vehicle.price.toLocaleString("fr-FR")} DZD`
@@ -100,6 +103,7 @@ export default async function VehicleDetailPage({
                   <p className="text-[11px] text-zinc-500 mt-0.5">
                     {vehicle.priceType === "fixed" ? "Prix fixe" : "Prix négociable"}
                   </p>
+                </div>
                 </div>
               </div>
 

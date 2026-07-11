@@ -41,6 +41,7 @@ export type SoukRegistrationMinAggregateOutputType = {
   spotNumber: number | null
   qrCode: string | null
   status: string | null
+  paid: boolean | null
   createdAt: Date | null
 }
 
@@ -51,6 +52,7 @@ export type SoukRegistrationMaxAggregateOutputType = {
   spotNumber: number | null
   qrCode: string | null
   status: string | null
+  paid: boolean | null
   createdAt: Date | null
 }
 
@@ -61,6 +63,7 @@ export type SoukRegistrationCountAggregateOutputType = {
   spotNumber: number
   qrCode: number
   status: number
+  paid: number
   createdAt: number
   _all: number
 }
@@ -81,6 +84,7 @@ export type SoukRegistrationMinAggregateInputType = {
   spotNumber?: true
   qrCode?: true
   status?: true
+  paid?: true
   createdAt?: true
 }
 
@@ -91,6 +95,7 @@ export type SoukRegistrationMaxAggregateInputType = {
   spotNumber?: true
   qrCode?: true
   status?: true
+  paid?: true
   createdAt?: true
 }
 
@@ -101,6 +106,7 @@ export type SoukRegistrationCountAggregateInputType = {
   spotNumber?: true
   qrCode?: true
   status?: true
+  paid?: true
   createdAt?: true
   _all?: true
 }
@@ -198,6 +204,7 @@ export type SoukRegistrationGroupByOutputType = {
   spotNumber: number | null
   qrCode: string
   status: string
+  paid: boolean
   createdAt: Date
   _count: SoukRegistrationCountAggregateOutputType | null
   _avg: SoukRegistrationAvgAggregateOutputType | null
@@ -231,6 +238,7 @@ export type SoukRegistrationWhereInput = {
   spotNumber?: Prisma.IntNullableFilter<"SoukRegistration"> | number | null
   qrCode?: Prisma.StringFilter<"SoukRegistration"> | string
   status?: Prisma.StringFilter<"SoukRegistration"> | string
+  paid?: Prisma.BoolFilter<"SoukRegistration"> | boolean
   createdAt?: Prisma.DateTimeFilter<"SoukRegistration"> | Date | string
   souk?: Prisma.XOR<Prisma.SoukScalarRelationFilter, Prisma.SoukWhereInput>
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -243,6 +251,7 @@ export type SoukRegistrationOrderByWithRelationInput = {
   spotNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   qrCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   souk?: Prisma.SoukOrderByWithRelationInput
   seller?: Prisma.UserOrderByWithRelationInput
@@ -259,6 +268,7 @@ export type SoukRegistrationWhereUniqueInput = Prisma.AtLeast<{
   spotNumber?: Prisma.IntNullableFilter<"SoukRegistration"> | number | null
   qrCode?: Prisma.StringFilter<"SoukRegistration"> | string
   status?: Prisma.StringFilter<"SoukRegistration"> | string
+  paid?: Prisma.BoolFilter<"SoukRegistration"> | boolean
   createdAt?: Prisma.DateTimeFilter<"SoukRegistration"> | Date | string
   souk?: Prisma.XOR<Prisma.SoukScalarRelationFilter, Prisma.SoukWhereInput>
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -271,6 +281,7 @@ export type SoukRegistrationOrderByWithAggregationInput = {
   spotNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   qrCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SoukRegistrationCountOrderByAggregateInput
   _avg?: Prisma.SoukRegistrationAvgOrderByAggregateInput
@@ -289,6 +300,7 @@ export type SoukRegistrationScalarWhereWithAggregatesInput = {
   spotNumber?: Prisma.IntNullableWithAggregatesFilter<"SoukRegistration"> | number | null
   qrCode?: Prisma.StringWithAggregatesFilter<"SoukRegistration"> | string
   status?: Prisma.StringWithAggregatesFilter<"SoukRegistration"> | string
+  paid?: Prisma.BoolWithAggregatesFilter<"SoukRegistration"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SoukRegistration"> | Date | string
 }
 
@@ -297,6 +309,7 @@ export type SoukRegistrationCreateInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   souk: Prisma.SoukCreateNestedOneWithoutRegistrationsInput
   seller: Prisma.UserCreateNestedOneWithoutRegistrationsInput
@@ -309,6 +322,7 @@ export type SoukRegistrationUncheckedCreateInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -317,6 +331,7 @@ export type SoukRegistrationUpdateInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souk?: Prisma.SoukUpdateOneRequiredWithoutRegistrationsNestedInput
   seller?: Prisma.UserUpdateOneRequiredWithoutRegistrationsNestedInput
@@ -329,6 +344,7 @@ export type SoukRegistrationUncheckedUpdateInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -339,6 +355,7 @@ export type SoukRegistrationCreateManyInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -347,6 +364,7 @@ export type SoukRegistrationUpdateManyMutationInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -357,6 +375,7 @@ export type SoukRegistrationUncheckedUpdateManyInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -382,6 +401,7 @@ export type SoukRegistrationCountOrderByAggregateInput = {
   spotNumber?: Prisma.SortOrder
   qrCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -396,6 +416,7 @@ export type SoukRegistrationMaxOrderByAggregateInput = {
   spotNumber?: Prisma.SortOrder
   qrCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -406,6 +427,7 @@ export type SoukRegistrationMinOrderByAggregateInput = {
   spotNumber?: Prisma.SortOrder
   qrCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -502,6 +524,7 @@ export type SoukRegistrationCreateWithoutSellerInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   souk: Prisma.SoukCreateNestedOneWithoutRegistrationsInput
 }
@@ -512,6 +535,7 @@ export type SoukRegistrationUncheckedCreateWithoutSellerInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -550,6 +574,7 @@ export type SoukRegistrationScalarWhereInput = {
   spotNumber?: Prisma.IntNullableFilter<"SoukRegistration"> | number | null
   qrCode?: Prisma.StringFilter<"SoukRegistration"> | string
   status?: Prisma.StringFilter<"SoukRegistration"> | string
+  paid?: Prisma.BoolFilter<"SoukRegistration"> | boolean
   createdAt?: Prisma.DateTimeFilter<"SoukRegistration"> | Date | string
 }
 
@@ -558,6 +583,7 @@ export type SoukRegistrationCreateWithoutSoukInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
   seller: Prisma.UserCreateNestedOneWithoutRegistrationsInput
 }
@@ -568,6 +594,7 @@ export type SoukRegistrationUncheckedCreateWithoutSoukInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -602,6 +629,7 @@ export type SoukRegistrationCreateManySellerInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -610,6 +638,7 @@ export type SoukRegistrationUpdateWithoutSellerInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souk?: Prisma.SoukUpdateOneRequiredWithoutRegistrationsNestedInput
 }
@@ -620,6 +649,7 @@ export type SoukRegistrationUncheckedUpdateWithoutSellerInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -629,6 +659,7 @@ export type SoukRegistrationUncheckedUpdateManyWithoutSellerInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -638,6 +669,7 @@ export type SoukRegistrationCreateManySoukInput = {
   spotNumber?: number | null
   qrCode: string
   status?: string
+  paid?: boolean
   createdAt?: Date | string
 }
 
@@ -646,6 +678,7 @@ export type SoukRegistrationUpdateWithoutSoukInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   seller?: Prisma.UserUpdateOneRequiredWithoutRegistrationsNestedInput
 }
@@ -656,6 +689,7 @@ export type SoukRegistrationUncheckedUpdateWithoutSoukInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -665,6 +699,7 @@ export type SoukRegistrationUncheckedUpdateManyWithoutSoukInput = {
   spotNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   qrCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -677,6 +712,7 @@ export type SoukRegistrationSelect<ExtArgs extends runtime.Types.Extensions.Inte
   spotNumber?: boolean
   qrCode?: boolean
   status?: boolean
+  paid?: boolean
   createdAt?: boolean
   souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -689,6 +725,7 @@ export type SoukRegistrationSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   spotNumber?: boolean
   qrCode?: boolean
   status?: boolean
+  paid?: boolean
   createdAt?: boolean
   souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -701,6 +738,7 @@ export type SoukRegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   spotNumber?: boolean
   qrCode?: boolean
   status?: boolean
+  paid?: boolean
   createdAt?: boolean
   souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -713,10 +751,11 @@ export type SoukRegistrationSelectScalar = {
   spotNumber?: boolean
   qrCode?: boolean
   status?: boolean
+  paid?: boolean
   createdAt?: boolean
 }
 
-export type SoukRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "soukId" | "sellerId" | "spotNumber" | "qrCode" | "status" | "createdAt", ExtArgs["result"]["soukRegistration"]>
+export type SoukRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "soukId" | "sellerId" | "spotNumber" | "qrCode" | "status" | "paid" | "createdAt", ExtArgs["result"]["soukRegistration"]>
 export type SoukRegistrationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   souk?: boolean | Prisma.SoukDefaultArgs<ExtArgs>
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -743,6 +782,7 @@ export type $SoukRegistrationPayload<ExtArgs extends runtime.Types.Extensions.In
     spotNumber: number | null
     qrCode: string
     status: string
+    paid: boolean
     createdAt: Date
   }, ExtArgs["result"]["soukRegistration"]>
   composites: {}
@@ -1175,6 +1215,7 @@ export interface SoukRegistrationFieldRefs {
   readonly spotNumber: Prisma.FieldRef<"SoukRegistration", 'Int'>
   readonly qrCode: Prisma.FieldRef<"SoukRegistration", 'String'>
   readonly status: Prisma.FieldRef<"SoukRegistration", 'String'>
+  readonly paid: Prisma.FieldRef<"SoukRegistration", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"SoukRegistration", 'DateTime'>
 }
     

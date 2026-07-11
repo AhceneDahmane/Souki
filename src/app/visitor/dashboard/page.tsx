@@ -76,6 +76,20 @@ export default async function VisitorDashboardPage() {
           >
             Voir tout
           </Link>
+          <Link
+            href="/souks/map"
+            className="flex items-center gap-1 text-xs px-3 py-1.5 border border-[#27272a] text-zinc-400 rounded-lg hover:bg-[#27272a] hover:text-white transition-all"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+            Carte
+          </Link>
+          <Link
+            href="/favorites"
+            className="flex items-center gap-1 text-xs px-3 py-1.5 border border-[#27272a] text-zinc-400 rounded-lg hover:bg-[#27272a] hover:text-red-400 transition-all"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            Favoris
+          </Link>
         </div>
         {souks.length === 0 ? (
           <div className="text-center py-12 bg-[#18181b] rounded-xl border border-[#27272a]">

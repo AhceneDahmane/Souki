@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import AnimatedCounter from "@/components/AnimatedCounter";
+
+export const metadata: Metadata = {
+  title: "Accueil",
+};
 
 const plans = [
   {

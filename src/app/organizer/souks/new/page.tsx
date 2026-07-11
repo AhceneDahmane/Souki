@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 
 export default function NewSoukPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [soukCount, setSoukCount] = useState(0);
+  const [checking, setChecking] = useState(true);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -17,6 +21,18 @@ export default function NewSoukPage() {
     spotPrice: "",
     services: "",
   });
+
+  useEffect(() => {
+    if (user?.role === "organizer") {
+      fetch("/api/organizer/stats")
+        .then((r) => r.json())
+        .then((data) => {
+          setSoukCount(data.soukCount ?? 0);
+          setChecking(false);
+        })
+        .catch(() => setChecking(false));
+    }
+  }, [user]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,6 +70,21 @@ export default function NewSoukPage() {
         <h1 className="text-2xl font-bold text-white">Créer un souk</h1>
         <p className="text-sm text-zinc-500 mt-1">Configurez votre événement automobile</p>
       </div>
+
+      {!checking && (
+        <div className={`mb-6 p-4 rounded-xl border ${soukCount === 0 ? "bg-green-500/10 border-green-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
+          <p className="text-sm font-medium text-white">
+            {soukCount === 0
+              ? "1er souk offert — aucune facturation"
+              : `499 DZD seront déduits de votre portefeuille pour ce nouveau souk`}
+          </p>
+          <p className="text-xs text-zinc-400 mt-1">
+            {soukCount === 0
+              ? "Les souks suivants sont facturés 499 DZD chacun."
+              : `Solde actuel : ${(user?.balance ?? 0).toLocaleString("fr-FR")} DZD`}
+          </p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5 bg-[#18181b] p-6 rounded-xl border border-[#27272a]">
         <div>

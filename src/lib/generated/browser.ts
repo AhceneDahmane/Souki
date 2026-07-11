@@ -47,3 +47,18 @@ export type Bid = Prisma.BidModel
  * 
  */
 export type VehicleAccess = Prisma.VehicleAccessModel
+/**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel

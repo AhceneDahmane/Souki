@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 
 function NewVehicleForm() {
   const router = useRouter();
+  const { user } = useAuth();
 
   const [loading, setLoading] = useState(false);
+  const [vehicleCount, setVehicleCount] = useState(0);
+  const [checking, setChecking] = useState(true);
   const [form, setForm] = useState({
     title: "",
     brand: "",
@@ -20,6 +24,18 @@ function NewVehicleForm() {
     image: "",
   });
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    if (user?.role === "seller") {
+      fetch("/api/vehicles")
+        .then((r) => r.json())
+        .then((data) => {
+          setVehicleCount(Array.isArray(data) ? data.length : 0);
+          setChecking(false);
+        })
+        .catch(() => setChecking(false));
+    }
+  }, [user]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -66,6 +82,21 @@ function NewVehicleForm() {
         <h1 className="text-2xl font-bold text-white">Ajouter un véhicule</h1>
         <p className="text-sm text-zinc-500 mt-1">Inscrivez votre véhicule à un souk</p>
       </div>
+
+      {!checking && (
+        <div className={`mb-6 p-4 rounded-xl border ${vehicleCount === 0 ? "bg-green-500/10 border-green-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
+          <p className="text-sm font-medium text-white">
+            {vehicleCount === 0
+              ? "1er véhicule offert — aucune facturation"
+              : `199 DZD seront déduits de votre portefeuille pour ce nouveau véhicule`}
+          </p>
+          <p className="text-xs text-zinc-400 mt-1">
+            {vehicleCount === 0
+              ? "Les véhicules suivants sont facturés 199 DZD chacun."
+              : `Solde actuel : ${(user?.balance ?? 0).toLocaleString("fr-FR")} DZD`}
+          </p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5 bg-[#18181b] p-6 rounded-xl border border-[#27272a]">
         <div>

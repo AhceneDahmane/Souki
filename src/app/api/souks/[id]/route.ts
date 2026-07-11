@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
+import { geocodeLocation } from "@/lib/geocode";
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -38,12 +39,18 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const body = await request.json();
     const { title, description, location, date, startTime, endTime, spots, spotPrice, services } = body;
 
+    let coords: { lat: number; lng: number } | null = null;
+    if (location !== undefined && location !== existing.location) {
+      coords = await geocodeLocation(location);
+    }
+
     const souk = await prisma.souk.update({
       where: { id },
       data: {
         ...(title !== undefined && { title }),
         ...(description !== undefined && { description }),
         ...(location !== undefined && { location }),
+        ...(coords && { lat: coords.lat, lng: coords.lng }),
         ...(date !== undefined && { date: new Date(date) }),
         ...(startTime !== undefined && { startTime }),
         ...(endTime !== undefined && { endTime }),

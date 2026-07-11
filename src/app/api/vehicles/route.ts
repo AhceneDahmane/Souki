@@ -35,20 +35,50 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
 
-    const vehicle = await prisma.vehicle.create({
-      data: {
-        title,
-        brand,
-        model,
-        year: year || null,
-        mileage: mileage || null,
-        fuelType: fuelType || null,
-        description: description || null,
-        price: price || null,
-        priceType: priceType || "negotiable",
-        images: images || null,
-        sellerId: user.id,
-      },
+    const vehicleCount = await prisma.vehicle.count({ where: { sellerId: user.id } });
+    const isFirst = vehicleCount === 0;
+    const fee = isFirst ? 0 : 199;
+
+    if (fee > 0 && (user.balance ?? 0) < fee) {
+      return Response.json({ error: "Solde insuffisant. Rechargez votre portefeuille." }, { status: 400 });
+    }
+
+    const vehicle = await prisma.$transaction(async (tx) => {
+      const v = await tx.vehicle.create({
+        data: {
+          title,
+          brand,
+          model,
+          year: year || null,
+          mileage: mileage || null,
+          fuelType: fuelType || null,
+          description: description || null,
+          price: price || null,
+          priceType: priceType || "negotiable",
+          images: images || null,
+          sellerId: user.id,
+        },
+      });
+
+      if (fee > 0) {
+        await tx.user.update({
+          where: { id: user.id },
+          data: { balance: { decrement: fee } },
+        });
+
+        await tx.payment.create({
+          data: {
+            userId: user.id,
+            type: "vehicle_listing",
+            amount: -fee,
+            description: `Ajout du véhicule "${title}"`,
+            referenceId: v.id,
+            status: "completed",
+          },
+        });
+      }
+
+      return v;
     });
 
     return Response.json(vehicle, { status: 201 });

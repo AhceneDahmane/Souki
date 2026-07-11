@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
+import { createNotification } from "@/lib/notifications";
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -21,6 +22,26 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       where: { id },
       data: { status },
     });
+
+    // Notify all registered sellers
+    if (status === "active" || status === "cancelled") {
+      const registrations = await prisma.soukRegistration.findMany({
+        where: { soukId: id, status: { in: ["pending", "accepted", "present"] } },
+      });
+
+      const label = status === "active" ? "est maintenant actif" : "a été annulé";
+      for (const reg of registrations) {
+        await createNotification({
+          userId: reg.sellerId,
+          type: "souk_status",
+          title: `Souk "${souk.title}" ${label}`,
+          message: status === "active"
+            ? "Le souk est ouvert ! Rendez-vous sur place avec vos véhicules."
+            : "Le souk a été annulé. Vous serez remboursé.",
+          link: `/souks/${id}`,
+        });
+      }
+    }
 
     return Response.json(souk);
   } catch (error) {
