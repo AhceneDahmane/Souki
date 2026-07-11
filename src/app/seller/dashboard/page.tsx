@@ -36,6 +36,8 @@ export default async function SellerDashboardPage() {
     },
   });
 
+  const vehiclesWithQr = vehicles.filter((v) => v.qrCode);
+
   const getRegStatus = (s: string) => {
     const m: Record<string, string> = {
       pending: "En attente", accepted: "Accepté", present: "Présent", rejected: "Refusé",
@@ -124,6 +126,23 @@ export default async function SellerDashboardPage() {
         </div>
         <VehicleListClient initial={vehicles} />
       </section>
+
+      {/* QR Codes véhicules */}
+      {vehiclesWithQr.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-base font-semibold text-white mb-4">QR codes véhicules</h2>
+          <p className="text-xs text-zinc-500 mb-4">Imprimez ces QR codes et déposez-les sur vos véhicules le jour du souk. Les visiteurs les scanneront pour voir les détails et enchérir en temps réel.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {vehiclesWithQr.map((v) => (
+              <div key={v.id} className="bg-[#18181b] rounded-xl border border-[#27272a] p-4 text-center">
+                <QRCodeZoom src={v.qrCode!} />
+                <p className="text-xs text-zinc-300 mt-2 font-medium">{v.title}</p>
+                {v.souk && <p className="text-[10px] text-zinc-600">{v.souk.title}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Inscriptions */}
       <section>

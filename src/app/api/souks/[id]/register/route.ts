@@ -51,11 +51,20 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       });
     }
 
-    // Link vehicles to souk
+    // Link vehicles to souk and generate vehicle QR codes
     await prisma.vehicle.updateMany({
       where: { id: { in: vehicleIds } },
       data: { soukId: id },
     });
+
+    for (const vehicle of vehicles) {
+      const vehicleQrData = `/vehicles/${vehicle.id}`;
+      const vehicleQrCode = await generateQRCode(vehicleQrData);
+      await prisma.vehicle.update({
+        where: { id: vehicle.id },
+        data: { qrCode: vehicleQrCode, status: "assigned" },
+      });
+    }
 
     return Response.json({ registration, vehiclesLinked: vehicleIds.length }, { status: existing ? 200 : 201 });
   } catch (error) {
@@ -84,21 +93,19 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       data: updateData,
     });
 
-    // If present, generate vehicle QR codes
+    // If present, generate vehicle QR codes for any vehicles missing them
     if (action === "present") {
       const vehicles = await prisma.vehicle.findMany({
-        where: { soukId: id, sellerId: registration.sellerId },
+        where: { soukId: id, sellerId: registration.sellerId, qrCode: null },
       });
 
       for (const vehicle of vehicles) {
-        if (!vehicle.qrCode) {
-          const qrData = JSON.stringify({ type: "vehicle-info", vehicleId: vehicle.id, soukId: id });
-          const qrCode = await generateQRCode(qrData);
-          await prisma.vehicle.update({
-            where: { id: vehicle.id },
-            data: { qrCode, status: "assigned" },
-          });
-        }
+        const qrData = `/vehicles/${vehicle.id}`;
+        const qrCode = await generateQRCode(qrData);
+        await prisma.vehicle.update({
+          where: { id: vehicle.id },
+          data: { qrCode, status: "assigned" },
+        });
       }
     }
 

@@ -178,44 +178,19 @@ export default async function VehicleDetailPage({
               </div>
             )}
 
-            {/* Place Bid */}
+            {/* Place Bid + History */}
             {isActive && (
-              <div className="bg-[#18181b] rounded-xl border border-[#27272a] p-6">
-                <h3 className="text-sm font-semibold text-white mb-4">Enchérir</h3>
-                <VehicleDetailClient
-                  vehicleId={vehicle.id}
-                  highestBid={highestBid}
-                  bidsCount={vehicle.bids.length}
-                />
-              </div>
-            )}
-
-            {/* Bid History */}
-            {vehicle.bids.length > 0 && (
-              <div className="bg-[#18181b] rounded-xl border border-[#27272a] p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-white">Historique des enchères</h3>
-                  <span className="text-xs text-zinc-500">{vehicle.bids.length} offre{vehicle.bids.length > 1 ? "s" : ""}</span>
-                </div>
-                <div className="space-y-2">
-                  {vehicle.bids.map((bid, i) => (
-                    <div key={bid.id} className={`flex items-center justify-between p-3 rounded-lg border ${i === 0 ? "bg-amber-500/5 border-amber-500/20" : "bg-[#0a0a0b] border-[#27272a]"}`}>
-                      <div className="flex items-center gap-2">
-                        {i === 0 && (
-                          <span className="text-xs text-amber-500 font-medium">🏆</span>
-                        )}
-                        <div>
-                          <p className="text-sm font-medium text-white">{bid.visitor.name}</p>
-                          <p className="text-[11px] text-zinc-500">{new Date(bid.createdAt).toLocaleString("fr-FR")}</p>
-                        </div>
-                      </div>
-                      <p className={`text-sm font-semibold ${i === 0 ? "text-amber-400" : "text-zinc-300"}`}>
-                        {bid.amount.toLocaleString("fr-FR")} DZD
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <VehicleDetailClient
+                vehicleId={vehicle.id}
+                highestBid={highestBid}
+                bidsCount={vehicle.bids.length}
+                initialBids={vehicle.bids.map((b) => ({
+                  id: b.id,
+                  amount: b.amount,
+                  visitorName: b.visitor.name,
+                  createdAt: b.createdAt.toISOString(),
+                }))}
+              />
             )}
           </div>
         </div>
