@@ -19,9 +19,13 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-1">
             <Link href="/souks" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Souks</Link>
-            <a href="/#comment-ca-marche" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Fonctionnement</a>
-            <a href="/#offres" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Offres</a>
-            <a href="/#temoignages" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Avis</a>
+            {!user && (
+              <>
+                <a href="/#comment-ca-marche" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Fonctionnement</a>
+                <a href="/#offres" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Offres</a>
+                <a href="/#temoignages" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Avis</a>
+              </>
+            )}
 
             {user?.role === "admin" && (
               <Link
