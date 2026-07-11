@@ -1,5 +1,6 @@
 import { PrismaClient } from "../src/lib/generated/client";
 import bcrypt from "bcryptjs";
+import QRCode from "qrcode";
 
 const prisma = new PrismaClient();
 
@@ -52,8 +53,11 @@ async function main() {
     },
   });
 
-  const souk = await prisma.souk.create({
-    data: {
+  const souk = await prisma.souk.upsert({
+    where: { id: "souk-alger-2026" },
+    update: {},
+    create: {
+      id: "souk-alger-2026",
       title: "Souk Auto Alger Mai 2026",
       description: "Le plus grand souk automobile d'Alger.",
       location: "Alger Centre, Place des Martyrs",
@@ -68,8 +72,11 @@ async function main() {
     },
   });
 
-  await prisma.souk.create({
-    data: {
+  await prisma.souk.upsert({
+    where: { id: "souk-oran-2026" },
+    update: {},
+    create: {
+      id: "souk-oran-2026",
       title: "Souk Auto Oran Juin 2026",
       description: "Souk automobile à Oran.",
       location: "Oran, Boulevard de l'Indépendance",
@@ -83,37 +90,121 @@ async function main() {
     },
   });
 
-  await prisma.vehicle.create({
-    data: {
+  // Seed vehicles — delete old ones first, re-create with images
+  await prisma.vehicleAccess.deleteMany({});
+  await prisma.bid.deleteMany({});
+  await prisma.vehicle.deleteMany({});
+
+  const vehicles = [
+    {
+      id: "veh-clio-4",
       title: "Renault Clio 4 1.5 dCi 90ch",
       brand: "Renault",
       model: "Clio 4",
       year: 2019,
       mileage: 45000,
       fuelType: "diesel",
-      description: "Très bon état, entretien régulier, clim, régulateur.",
+      description: "Très bon état, entretien régulier, clim, régulateur, vitres électriques.",
       price: 85000,
       priceType: "negotiable",
+      images: JSON.stringify(["/uploads/car1.jpeg"]),
       soukId: souk.id,
       sellerId: seller.id,
+      status: "assigned",
     },
-  });
-
-  await prisma.vehicle.create({
-    data: {
+    {
+      id: "veh-corolla",
       title: "Toyota Corolla 12 1.8 Hybrid",
       brand: "Toyota",
       model: "Corolla 12",
       year: 2021,
       mileage: 25000,
       fuelType: "hybride",
-      description: "Berline hybride, faible consommation, garantie constructeur.",
+      description: "Berline hybride, faible consommation, garantie constructeur jusqu'en 2027.",
       price: 185000,
       priceType: "fixed",
+      images: JSON.stringify(["/uploads/car2.jpeg"]),
       soukId: souk.id,
       sellerId: seller.id,
+      status: "assigned",
+    },
+    {
+      id: "veh-golf",
+      title: "Volkswagen Golf 7 TSI 125ch",
+      brand: "Volkswagen",
+      model: "Golf 7",
+      year: 2018,
+      mileage: 62000,
+      fuelType: "essence",
+      description: "Toit ouvrant, sièges cuir, GPS, caméra de recul.",
+      price: 120000,
+      priceType: "negotiable",
+      images: JSON.stringify(["/uploads/car3.jpeg"]),
+      soukId: null,
+      sellerId: seller.id,
+      status: "pending",
+    },
+    {
+      id: "veh-peugeot",
+      title: "Peugeot 208 1.2 PureTech 82ch",
+      brand: "Peugeot",
+      model: "208",
+      year: 2020,
+      mileage: 34000,
+      fuelType: "essence",
+      description: "Première main, clim auto, écran tactile, Apple CarPlay.",
+      price: 72000,
+      priceType: "negotiable",
+      images: JSON.stringify(["/uploads/car4.jpeg"]),
+      soukId: null,
+      sellerId: seller.id,
+      status: "pending",
+    },
+    {
+      id: "veh-mercedes",
+      title: "Mercedes Classe C 220d AMG",
+      brand: "Mercedes",
+      model: "Classe C",
+      year: 2022,
+      mileage: 15000,
+      fuelType: "diesel",
+      description: "AMG Line, intérieur cuir noir, toit panoramique, assistance autoroute.",
+      price: 350000,
+      priceType: "fixed",
+      images: JSON.stringify(["/uploads/car5.jpeg"]),
+      soukId: null,
+      sellerId: seller.id,
+      status: "pending",
+    },
+  ];
+
+  for (const v of vehicles) {
+    await prisma.vehicle.create({ data: v });
+  }
+
+  // Create registration for the seller in the Alger souk
+  await prisma.soukRegistration.upsert({
+    where: { soukId_sellerId: { soukId: souk.id, sellerId: seller.id } },
+    update: {},
+    create: {
+      soukId: souk.id,
+      sellerId: seller.id,
+      status: "accepted",
+      qrCode: await QRCode.toDataURL(
+        JSON.stringify({ type: "souk-access", soukId: souk.id, sellerId: seller.id }),
+        { width: 300, margin: 2 },
+      ),
     },
   });
+
+  // Generate vehicle QR codes for souk-assigned vehicles
+  const assignedVehicles = vehicles.filter((v) => v.soukId === souk.id);
+  for (const v of assignedVehicles) {
+    await prisma.vehicle.update({
+      where: { id: v.id },
+      data: { qrCode: await QRCode.toDataURL(`/vehicles/${v.id}`, { width: 300, margin: 2 }) },
+    });
+  }
 
   console.log("Base de données initialisée avec succès !");
 }
