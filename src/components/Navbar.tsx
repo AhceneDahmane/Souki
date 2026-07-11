@@ -61,7 +61,12 @@ export default function Navbar() {
 
             {user ? (
               <div className="flex items-center gap-2 ml-2">
-                <span className="text-sm text-zinc-500 hidden sm:inline">{user.name}</span>
+                <Link
+                  href="/profile"
+                  className="text-sm text-zinc-500 hidden sm:inline hover:text-amber-400 transition-colors"
+                >
+                  {user.name}
+                </Link>
                 <Link
                   href="/settings"
                   className="p-1.5 text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200"
