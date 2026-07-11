@@ -23,6 +23,15 @@ export default function Navbar() {
             <a href="/#offres" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Offres</a>
             <a href="/#temoignages" className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200">Avis</a>
 
+            {user?.role === "admin" && (
+              <Link
+                href="/admin"
+                className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-[#27272a] rounded-lg transition-all duration-200"
+              >
+                Admin
+              </Link>
+            )}
+
             {user?.role === "organizer" && (
               <Link
                 href="/organizer/dashboard"

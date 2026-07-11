@@ -19,6 +19,7 @@ export default function LoginPage() {
     { role: "Visiteur", email: "visitor@souki.dz", dash: "/visitor/dashboard" },
     { role: "Vendeur", email: "seller@souki.dz", dash: "/seller/dashboard" },
     { role: "Organisateur", email: "organizer@souki.dz", dash: "/organizer/dashboard" },
+    { role: "Admin", email: "admin@souki.dz", dash: "/admin" },
   ];
 
   async function handleSubmit(e: FormEvent) {
@@ -44,6 +45,7 @@ export default function LoginPage() {
         visitor: "/visitor/dashboard",
         seller: "/seller/dashboard",
         organizer: "/organizer/dashboard",
+        admin: "/admin",
       };
       router.replace(roleRedirect[data.user.role] || "/");
     } catch {

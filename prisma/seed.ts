@@ -41,6 +41,17 @@ async function main() {
     },
   });
 
+  await prisma.user.upsert({
+    where: { email: "admin@souki.dz" },
+    update: {},
+    create: {
+      email: "admin@souki.dz",
+      name: "Admin Souki",
+      password,
+      role: "admin",
+    },
+  });
+
   const souk = await prisma.souk.create({
     data: {
       title: "Souk Auto Alger Mai 2026",
