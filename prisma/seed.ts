@@ -16,6 +16,8 @@ async function main() {
       password,
       role: "organizer",
       phone: "+213 555 123 456",
+      cguAccepted: true,
+      cguAcceptedAt: new Date(),
     },
   });
 
@@ -28,6 +30,8 @@ async function main() {
       password,
       role: "seller",
       phone: "+213 555 789 012",
+      cguAccepted: true,
+      cguAcceptedAt: new Date(),
     },
   });
 
@@ -39,6 +43,8 @@ async function main() {
       name: "Visiteur Test",
       password,
       role: "visitor",
+      cguAccepted: true,
+      cguAcceptedAt: new Date(),
     },
   });
 
@@ -50,6 +56,8 @@ async function main() {
       name: "Admin Souki",
       password,
       role: "admin",
+      cguAccepted: true,
+      cguAcceptedAt: new Date(),
     },
   });
 

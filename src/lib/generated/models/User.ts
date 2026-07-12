@@ -42,6 +42,8 @@ export type UserMinAggregateOutputType = {
   role: string | null
   phone: string | null
   balance: number | null
+  cguAccepted: boolean | null
+  cguAcceptedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +56,8 @@ export type UserMaxAggregateOutputType = {
   role: string | null
   phone: string | null
   balance: number | null
+  cguAccepted: boolean | null
+  cguAcceptedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +70,8 @@ export type UserCountAggregateOutputType = {
   role: number
   phone: number
   balance: number
+  cguAccepted: number
+  cguAcceptedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,6 +94,8 @@ export type UserMinAggregateInputType = {
   role?: true
   phone?: true
   balance?: true
+  cguAccepted?: true
+  cguAcceptedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +108,8 @@ export type UserMaxAggregateInputType = {
   role?: true
   phone?: true
   balance?: true
+  cguAccepted?: true
+  cguAcceptedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +122,8 @@ export type UserCountAggregateInputType = {
   role?: true
   phone?: true
   balance?: true
+  cguAccepted?: true
+  cguAcceptedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -211,6 +223,8 @@ export type UserGroupByOutputType = {
   role: string
   phone: string | null
   balance: number
+  cguAccepted: boolean
+  cguAcceptedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -246,6 +260,8 @@ export type UserWhereInput = {
   role?: Prisma.StringFilter<"User"> | string
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   balance?: Prisma.FloatFilter<"User"> | number
+  cguAccepted?: Prisma.BoolFilter<"User"> | boolean
+  cguAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   souks?: Prisma.SoukListRelationFilter
@@ -265,6 +281,8 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   balance?: Prisma.SortOrder
+  cguAccepted?: Prisma.SortOrder
+  cguAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   souks?: Prisma.SoukOrderByRelationAggregateInput
@@ -287,6 +305,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.StringFilter<"User"> | string
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   balance?: Prisma.FloatFilter<"User"> | number
+  cguAccepted?: Prisma.BoolFilter<"User"> | boolean
+  cguAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   souks?: Prisma.SoukListRelationFilter
@@ -306,6 +326,8 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   balance?: Prisma.SortOrder
+  cguAccepted?: Prisma.SortOrder
+  cguAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -326,6 +348,8 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   balance?: Prisma.FloatWithAggregatesFilter<"User"> | number
+  cguAccepted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  cguAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -338,6 +362,8 @@ export type UserCreateInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -357,6 +383,8 @@ export type UserUncheckedCreateInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -376,6 +404,8 @@ export type UserUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -395,6 +425,8 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -414,6 +446,8 @@ export type UserCreateManyInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -426,6 +460,8 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -438,6 +474,8 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -450,6 +488,8 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  cguAccepted?: Prisma.SortOrder
+  cguAcceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -466,6 +506,8 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  cguAccepted?: Prisma.SortOrder
+  cguAcceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -478,6 +520,8 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  cguAccepted?: Prisma.SortOrder
+  cguAcceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -505,6 +549,14 @@ export type FloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -617,6 +669,8 @@ export type UserCreateWithoutSouksInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   vehicles?: Prisma.VehicleCreateNestedManyWithoutSellerInput
@@ -635,6 +689,8 @@ export type UserUncheckedCreateWithoutSouksInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutSellerInput
@@ -669,6 +725,8 @@ export type UserUpdateWithoutSouksInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vehicles?: Prisma.VehicleUpdateManyWithoutSellerNestedInput
@@ -687,6 +745,8 @@ export type UserUncheckedUpdateWithoutSouksInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutSellerNestedInput
@@ -705,6 +765,8 @@ export type UserCreateWithoutVehiclesInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -723,6 +785,8 @@ export type UserUncheckedCreateWithoutVehiclesInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -757,6 +821,8 @@ export type UserUpdateWithoutVehiclesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -775,6 +841,8 @@ export type UserUncheckedUpdateWithoutVehiclesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -793,6 +861,8 @@ export type UserCreateWithoutRegistrationsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -811,6 +881,8 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -845,6 +917,8 @@ export type UserUpdateWithoutRegistrationsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -863,6 +937,8 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -881,6 +957,8 @@ export type UserCreateWithoutBidsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -899,6 +977,8 @@ export type UserUncheckedCreateWithoutBidsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -933,6 +1013,8 @@ export type UserUpdateWithoutBidsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -951,6 +1033,8 @@ export type UserUncheckedUpdateWithoutBidsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -969,6 +1053,8 @@ export type UserCreateWithoutFavoritesInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -987,6 +1073,8 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -1021,6 +1109,8 @@ export type UserUpdateWithoutFavoritesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -1039,6 +1129,8 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -1057,6 +1149,8 @@ export type UserCreateWithoutNotificationsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -1075,6 +1169,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -1109,6 +1205,8 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -1127,6 +1225,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -1145,6 +1245,8 @@ export type UserCreateWithoutPaymentsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukCreateNestedManyWithoutOrganizerInput
@@ -1163,6 +1265,8 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   role?: string
   phone?: string | null
   balance?: number
+  cguAccepted?: boolean
+  cguAcceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   souks?: Prisma.SoukUncheckedCreateNestedManyWithoutOrganizerInput
@@ -1197,6 +1301,8 @@ export type UserUpdateWithoutPaymentsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUpdateManyWithoutOrganizerNestedInput
@@ -1215,6 +1321,8 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balance?: Prisma.FloatFieldUpdateOperationsInput | number
+  cguAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cguAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   souks?: Prisma.SoukUncheckedUpdateManyWithoutOrganizerNestedInput
@@ -1318,6 +1426,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   phone?: boolean
   balance?: boolean
+  cguAccepted?: boolean
+  cguAcceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   souks?: boolean | Prisma.User$souksArgs<ExtArgs>
@@ -1338,6 +1448,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   phone?: boolean
   balance?: boolean
+  cguAccepted?: boolean
+  cguAcceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1350,6 +1462,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   phone?: boolean
   balance?: boolean
+  cguAccepted?: boolean
+  cguAcceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1362,11 +1476,13 @@ export type UserSelectScalar = {
   role?: boolean
   phone?: boolean
   balance?: boolean
+  cguAccepted?: boolean
+  cguAcceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "role" | "phone" | "balance" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "role" | "phone" | "balance" | "cguAccepted" | "cguAcceptedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   souks?: boolean | Prisma.User$souksArgs<ExtArgs>
   vehicles?: boolean | Prisma.User$vehiclesArgs<ExtArgs>
@@ -1399,6 +1515,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: string
     phone: string | null
     balance: number
+    cguAccepted: boolean
+    cguAcceptedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1838,6 +1956,8 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly balance: Prisma.FieldRef<"User", 'Float'>
+  readonly cguAccepted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly cguAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

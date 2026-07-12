@@ -9,6 +9,7 @@ type User = {
   role: string;
   phone: string | null;
   balance: number;
+  cguAccepted: boolean;
 };
 
 type AuthContextType = {

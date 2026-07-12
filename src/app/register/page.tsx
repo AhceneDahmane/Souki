@@ -14,6 +14,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("visitor");
   const [phone, setPhone] = useState("");
+  const [cguAccepted, setCguAccepted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +27,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, role, phone: phone || undefined }),
+        body: JSON.stringify({ name, email, password, role, phone: phone || undefined, cguAccepted }),
       });
 
       const data = await res.json();
@@ -139,6 +140,21 @@ export default function RegisterPage() {
               placeholder="+213 555 XX XX XX"
             />
           </div>
+
+          <label className="flex items-start gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={cguAccepted}
+              onChange={(e) => setCguAccepted(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#27272a] bg-[#18181b] text-amber-500 focus:ring-amber-500 focus:ring-offset-0"
+            />
+            <span className="text-xs text-zinc-400">
+              J&apos;accepte les{" "}
+              <Link href="/cgu" target="_blank" className="text-amber-500 hover:text-amber-400 underline">
+                conditions générales d&apos;utilisation
+              </Link>
+            </span>
+          </label>
 
           <button
             type="submit"

@@ -16,6 +16,8 @@ model User {
   role      String   @default("visitor") // visitor, organizer, seller, admin
   phone     String?
   balance   Float    @default(0)
+  cguAccepted   Boolean  @default(false)
+  cguAcceptedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

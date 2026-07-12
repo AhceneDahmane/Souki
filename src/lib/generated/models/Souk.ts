@@ -732,10 +732,6 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type SoukCreateNestedOneWithoutVehiclesInput = {
   create?: Prisma.XOR<Prisma.SoukCreateWithoutVehiclesInput, Prisma.SoukUncheckedCreateWithoutVehiclesInput>
   connectOrCreate?: Prisma.SoukCreateOrConnectWithoutVehiclesInput
